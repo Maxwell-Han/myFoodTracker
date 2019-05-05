@@ -1,0 +1,14 @@
+<div class="navbar-container">
+  <div class="navbar-top">
+    <a>Profile</a>
+    <% if(showTodayLink){ %>
+      <a href="/<%= username %>/log">Back to Today</a>
+      <% } %>
+    <a>Stats</a>
+  </div>
+  <div class="navbar-bottom">
+    <a class="prev-day"><<</a>
+    <% include dateDisplay %>
+    <a class="next-day">>></a>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<% include ./partials/header %>
+<head>
+  <meta charset="utf-8">
+    <title>MacroTracker</title>
+    <link rel="stylesheet" type="text/css" href="/css/userlog.css">
+    <!-- Material design icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+</head>
+<body>
+<div class="outmost-container">
+<% include ./partials/navbar %>
+<h2>Welcome back <span class="username"><%=username %></span></h2>
+<% include ./partials/userStats %>
+<div class="grid-container">
+  <div>Food Name</div>
+  <div>Carbs</div>
+  <div>Fats</div>
+  <div>Protein</div>
+  <div>Favorite?</div>
+  <div class="edit-options">
+    <div>Edit</div>
+    <div>Delete</div>
+  </div>
+  <% todaysEntries.forEach( meal => { %>
+    <div class="entry-name"><%=meal.name%></div>
+    <div class="entry-carb"><%=meal.carb%></div>
+    <div class="entry-fat"><%=meal.fat%></div>
+    <div class="entry-protein"><%=meal.protein%></div>
+    <% if(meal.favorite){ %>
+      <div class="heart-filled entry-fav">Y</div>
+    <% }else{ %>
+      <div class="heart entry-fav">N</div>
+    <% } %>
+    <div class="options" id="<%= meal.id %>"><span class="edit">Edit</span> || <span class="delete">Delete</span></div>
+  <% }) %>
+</div>
+
+<div>Enter a new meal</div>
+  <form class="new-entry-form" action="/<%=username %>/log " method="post">
+    <input name="name" class="new-entry-name" placeholder="Food or Meal Name">
+    <input name="carb" class="new-entry-carb" placeholder="carbs">
+    <input name="fat" class="new-entry-fat" placeholder="fat">
+    <input name="protein" class="new-entry-protein" placeholder="protein">
+    <div class="favorite"><i class="material-icons">favorite_border</i></div>
+    <div class="ajax-post material-icons">add_circle</div>
+
+  </form>
+</div>
+<script type="text/javascript" src="/scripts/userlog.js"></script>
+<script type="text/javascript" src="/scripts/ajaxUpdate.js"></script>
+
+<% include ./partials/footer %>

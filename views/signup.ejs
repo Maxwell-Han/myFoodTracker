@@ -1,0 +1,16 @@
+<% include ./partials/header %>
+<head>
+  <meta charset="utf-8">
+    <title>MacroTracker</title>
+    <link rel="stylesheet" type="text/css" href="../css/userlog.css">
+</head>
+<body>
+  <div>Welcome to Macro Tracker</div>
+  <div>Please sign up</div>
+  <form action="/signup" method="post">
+    <input name="username" placeholder="username">
+    <input name="email" placeholder="email">
+    <input name="password" placeholder="password">
+    <button>Sign Up</button>
+  </form>
+<% include ./partials/footer %>

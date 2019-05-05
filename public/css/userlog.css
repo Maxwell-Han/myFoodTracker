@@ -1,0 +1,87 @@
+
+/* .outmost-container {
+  width: 65%;
+  margin: 0 auto;
+} */
+.grid-container {
+  width: 60vw;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+}
+
+/* NAVBAR STYLES */
+.navbar-container {
+  width: 55vw;
+}
+.navbar-top, .navbar-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.outer-stats-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 60vw;
+  border: 1px solid red;
+  justify-content: space-around;
+}
+
+.stats-labels-container {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  width: 10vw;
+}
+.stats-container {
+  width: 45vw;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  border: 1px solid black;
+  justify-items: center;
+}
+
+.stats-flex-container {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+#of {
+  font-size: .7em;
+  margin: 0.3em;
+}
+
+.remaining-stats-container,
+.stats-header-container {
+  width: 45vw;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  border: 1px solid black;
+  justify-items: center;
+}
+
+.new-entry-form {
+  width: 60vw;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+input[name=name] {
+  width: 15vw;
+}
+input[name=carb],
+input[name=fat],
+input[name=protein] {
+  width: 5vw;
+}
+
+
+.ajax-post {
+  /* margin: 0 auto; */
+  border: 1px solid black;
+}
+
+.ajax-post:hover {
+  border: 3px solid green;
+}
