@@ -2,7 +2,7 @@
   <div class="navbar-top">
     <a>Profile</a>
     <% if(showTodayLink){ %>
-      <a href="/<%= username %>/log">Back to Today</a>
+      <a href="/<%= username %>/log"><i class="material-icons">today</i></a>
       <% } %>
     <a>Stats</a>
   </div>
@@ -11,4 +11,5 @@
     <% include dateDisplay %>
     <a class="next-day">>></a>
   </div>
+  <h3 class="greeting">Welcome back <span class="username"><%=username %></span></h3>
 </div>

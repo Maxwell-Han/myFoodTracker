@@ -1,9 +1,14 @@
-
-/* .outmost-container {
-  width: 65%;
-  margin: 0 auto;
-} */
-.grid-container {
+.body {
+}
+.outmost-container {
+  width: 60%;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+}
+/* SECTION CONTAINERS */
+.log-grid-container,
+.new-entry-form,
+.outer-stats-container{
   width: 60vw;
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
@@ -11,7 +16,8 @@
 
 /* NAVBAR STYLES */
 .navbar-container {
-  width: 55vw;
+  display: flex;
+  flex-direction: column;
 }
 .navbar-top, .navbar-bottom {
   display: flex;
@@ -19,18 +25,28 @@
   justify-content: space-between;
 }
 
+.greeting {
+  align-self: center;
+}
+
+/*CALORIE SECTION  */
+.calorie-stats-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+}
+
+/* SUMMARY SECTION */
 .outer-stats-container {
   display: grid;
   grid-template-columns: auto auto;
-  width: 60vw;
   border: 1px solid red;
-  justify-content: space-around;
+  justify-content:space-around;
 }
 
 .stats-labels-container {
   display: grid;
   grid-template-rows: auto auto auto;
-  width: 10vw;
+  width: auto;
 }
 .stats-container {
   width: 45vw;
@@ -50,6 +66,9 @@
   font-size: .7em;
   margin: 0.3em;
 }
+#empty {
+  color: white;
+}
 
 .remaining-stats-container,
 .stats-header-container {
@@ -60,8 +79,19 @@
   justify-items: center;
 }
 
+/* LOGGED ITEMS SECTION */
+.log-grid-container {
+  justify-items: center;
+  text-align: center;
+}
+.entry-label, .entry-carb, .entry-fat, .entry-protein {
+  width: 100%;
+}
+
+
+
+/* NEW ENTRY FORM */
 .new-entry-form {
-  width: 60vw;
   height: auto;
   display: flex;
   justify-content: space-around;
@@ -75,7 +105,6 @@ input[name=fat],
 input[name=protein] {
   width: 5vw;
 }
-
 
 .ajax-post {
   /* margin: 0 auto; */

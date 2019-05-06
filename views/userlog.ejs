@@ -11,18 +11,15 @@
 <body>
 <div class="outmost-container">
 <% include ./partials/navbar %>
-<h2>Welcome back <span class="username"><%=username %></span></h2>
+
 <% include ./partials/userStats %>
-<div class="grid-container">
-  <div>Food Name</div>
-  <div>Carbs</div>
-  <div>Fats</div>
-  <div>Protein</div>
-  <div>Favorite?</div>
-  <div class="edit-options">
-    <div>Edit</div>
-    <div>Delete</div>
-  </div>
+<div class="log-grid-container">
+  <div class="entry-label">Item Name</div>
+  <div class="entry-label">Carbs</div>
+  <div class="entry-label">Fats</div>
+  <div class="entry-label">Protein</div>
+  <div class="entry-label">Favorite</div>
+  <div class="entry-label edit-options">Options</div>
   <% todaysEntries.forEach( meal => { %>
     <div class="entry-name"><%=meal.name%></div>
     <div class="entry-carb"><%=meal.carb%></div>
@@ -37,7 +34,6 @@
   <% }) %>
 </div>
 
-<div>Enter a new meal</div>
   <form class="new-entry-form" action="/<%=username %>/log " method="post">
     <input name="name" class="new-entry-name" placeholder="Food or Meal Name">
     <input name="carb" class="new-entry-carb" placeholder="carbs">
