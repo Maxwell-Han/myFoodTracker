@@ -1,0 +1,22 @@
+
+.title{
+  font-size: 4vw;;
+  text-align: center;
+}
+
+.signin-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+  width: 40%;
+  justify-content: center;
+}
+
+input, button{
+  margin-top: 5px;
+  border: solid lightblue;
+  border-radius: 5px;
+  height: 5vh;
+  font-size: 2vw;
+}

@@ -27,9 +27,13 @@ function showEdit(e){
   }
 
   newProtein.value = protein.textContent
+  newProtein.name = "update-entry-protein"
   newFat.value = fat.textContent
+  newFat.name = "update-entry-fat"
   newCarbs.value = carbs.textContent
+  newCarbs.name = "update-entry-carb"
   newName.value = name.textContent
+  newName.name = "update-entry-name"
 
   protein.parentNode.replaceChild(newProtein, protein)
   fat.parentNode.replaceChild(newFat, fat)
@@ -70,18 +74,18 @@ function showEdit(e){
 // add click handler to all edit
 // select the entry field values and change to form
 function createEditOptions(){
-  var cancel = document.createElement('span')
-  cancel.textContent = 'Cancel'
-  cancel.className = "cancel"
-  var spacing = document.createElement('span')
-  spacing.textContent = "||"
-  var save = document.createElement('span')
-  save.textContent = 'Save'
-  save.className = "save"
+  var cancel = document.createElement('i')
+  cancel.textContent = 'cancel'
+  cancel.className = "cancel material-icons"
+  // var spacing = document.createElement('span')
+  // spacing.textContent = "||"
+  var save = document.createElement('i')
+  save.textContent = 'save'
+  save.className = "save material-icons"
   var optionsContainer = document.createElement('div')
   optionsContainer.className = "edit-options-container"
   optionsContainer.appendChild(cancel)
-  optionsContainer.appendChild(spacing)
+  // optionsContainer.appendChild(spacing)
   optionsContainer.appendChild(save)
 
   return optionsContainer

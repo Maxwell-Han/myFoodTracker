@@ -1,10 +1,19 @@
 require("dotenv").config()
 var express = require('express')
 var mongoose = require('mongoose')
+
+//comment out to use mongo atlas
 mongoose.set('debug', true)
 mongoose.connect('mongodb://localhost:27017/testmacros', {
   keepAlive: true,
 })
+
+// Using mongo atlas, connect to testFoods db
+// const uri = `mongodb+srv://admin:${process.env.MACRO_APP_DB_KEY}@clusterm-t6qy8.mongodb.net/testFoods?retryWrites=true`
+// mongoose.connect(uri, {
+//   keepAlive: true,
+// })
+
 var User = require('./models/user')
 var Entry = require('./models/entry')
 
@@ -16,6 +25,7 @@ var app = express()
 
 var authRoutes = require('./routes/auth')
 var entryRoutes = require('./routes/entries')
+var userProfileRoutes = require('./routes/userProfile')
 
 app.use(require('express-session')({
   secret: process.env.SECRET_KEY,
@@ -46,6 +56,7 @@ app.get('/', function(req, res) {
 
 app.use(authRoutes)
 app.use(entryRoutes)
+app.use(userProfileRoutes)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

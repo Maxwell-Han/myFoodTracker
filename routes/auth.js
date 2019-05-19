@@ -23,22 +23,33 @@ router.get('/secret', middleware.isLoggedIn, function(req, res) {
       res.render('./secret', {users: allUsers})
     }
   })
-  // res.render('secret')
 })
 
 router.post('/signup', function(req, res, next) {
-  User.register(new User({username: req.body.username}),
+  User.register(new User({username: req.body.username, email: req.body.email}),
     req.body.password,
     function(err, user){
       if(err){
         console.log(err)
         return res.render('signup')
       }
+      let username = req.body.username
       passport.authenticate('local')(req, res, function() {
-        res.redirect('secret')
+        res.render(`newUser`, {username})
     })
   })
 })
+
+router.get('/testNewUser', function(req, res) {
+  let username = req.user.username
+  res.render('newUser', {username})
+})
+router.get('/newUser/:username', function(req, res){
+  
+  res.render('newUser')
+})
+
+
 
 router.get('/login', function(req, res) {
   res.render('login')

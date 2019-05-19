@@ -1,28 +1,55 @@
-.body {
+body {
+  background-color: lightyellow;
+  display: flex;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
 }
 .outmost-container {
-  width: 60%;
+  width: 96%;
   display: grid;
-  grid-template-rows: auto auto auto auto auto;
+  grid-template-areas:
+  "navbar"
+  "calorie-container"
+  "outer-stats-container"
+  "log-container"
+  "new-entry-form";
+  grid-row-gap: 2vh;
+}
+
+#arrow-left,
+#arrow-right {
+  font-size: 34px;
+  text-decoration: none;
 }
 /* SECTION CONTAINERS */
-.log-grid-container,
+
 .new-entry-form,
 .outer-stats-container{
-  width: 60vw;
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
+  min-width: 0;
 }
+.log-grid-container{
+  display: grid;
+  grid-template-columns: auto 1fr 1fr 1fr 1fr 1fr;
+}
+
 
 /* NAVBAR STYLES */
 .navbar-container {
+  font-size: 5vw;
   display: flex;
   flex-direction: column;
+  grid-area: navbar;
 }
 .navbar-top, .navbar-bottom {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+#today {
+  font-size: 8vw;
 }
 
 .greeting {
@@ -31,39 +58,52 @@
 
 /*CALORIE SECTION  */
 .calorie-stats-container {
+  font-size: 5vw;
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto;
+  grid-area: calorie-container;
+  justify-content: space-evenly;
 }
+
+.cal-target, .cal-consumed, .cal-burned, .cal-remaining {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 /* SUMMARY SECTION */
 .outer-stats-container {
   display: grid;
-  grid-template-columns: auto auto;
-  border: 1px solid red;
-  justify-content:space-around;
+  grid-template-columns: auto;
+  grid-area: outer-stats-container;
 }
 
 .stats-labels-container {
-  display: grid;
+  display: none;
   grid-template-rows: auto auto auto;
   width: auto;
 }
+.stats-main-container {
+  font-size: 5vw;
+  background-color: ivory;
+}
 .stats-container {
-  width: 45vw;
   display: grid;
   grid-template-columns: auto auto auto;
-  border: 1px solid black;
   justify-items: center;
+  border-top: .7px solid lightblue;
+  border-bottom: .7px solid lightblue;
+
 }
 
 .stats-flex-container {
   display: flex;
   justify-content: space-around;
-  align-content: center;
+  align-items: center;
 }
 
 #of {
-  font-size: .7em;
   margin: 0.3em;
 }
 #empty {
@@ -72,43 +112,95 @@
 
 .remaining-stats-container,
 .stats-header-container {
-  width: 45vw;
   display: grid;
   grid-template-columns: auto auto auto;
-  border: 1px solid black;
   justify-items: center;
 }
 
 /* LOGGED ITEMS SECTION */
 .log-grid-container {
+  font-size: 3.5vw;
   justify-items: center;
+  align-items: center;
+  grid-area: log-container;
+  background-color: whitesmoke;
+  border-radius: 12px;
+}
+.entry-name, .entry-carb, .entry-fat, .entry-protein {
+  width: 100%;
+
+}
+.entry-name {
+  text-align: left;
+  margin-left: 15px;
+}
+.entry-carb, .entry-fat, .entry-protein {
   text-align: center;
 }
-.entry-label, .entry-carb, .entry-fat, .entry-protein {
-  width: 100%;
-}
 
+.options {
+  display: flex;
+}
 
 
 /* NEW ENTRY FORM */
 .new-entry-form {
-  height: auto;
+  height: 5vh;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between  ;
+  grid-area: new-entry-form;
 }
 
-input[name=name] {
-  width: 15vw;
+.new-entry-form input {
+  border-radius: 5px;
 }
-input[name=carb],
-input[name=fat],
-input[name=protein] {
+input[name="name"] {
+  font-size: 3vw;
+  text-align: left;
+}
+input[name="carb"],
+input[name="fat"],
+input[name="protein"] {
+  width: 10vw;
+  text-align: right;
+}
+
+input[class="new-entry-name"] {
+  width: 28vw;
+
+}
+
+input[name=update-entry-protein],
+input[name=update-entry-fat],
+input[name=update-entry-carb],
+input[name=update-entry-name]{
+  font-size: 3vw;
+  border: 1px solid gray;
+
+}
+input[name=update-entry-name]{
+  width: 77px;
+  text-align: left;
+}
+
+input[name=update-entry-fat],
+input[name=update-entry-carb],
+input[name=update-entry-protein] {
   width: 5vw;
+  text-align: right;
+  border-radius: 5px;
 }
 
-.ajax-post {
-  /* margin: 0 auto; */
-  border: 1px solid black;
+.favorite, .ajax-post{
+  width: 6vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#favorite, #add-entry {
+  align-self: center;
+
 }
 
 .ajax-post:hover {

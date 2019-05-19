@@ -1,15 +1,16 @@
 <% include ./partials/header %>
 <head>
   <meta charset="utf-8">
-    <title>MacroTracker</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="/css/signin.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <title>MyFoodPal</title>
 </head>
 <body>
-  
-  <div>Welcome to Macro Tracker</div>
-  <div>Sign In</div>
-  <form action="/login" method="post">
+  <div class="title">Sign In</div>
+  <form action="/login" method="post" class="signin-container">
     <input name="username" placeholder="username">
-    <input name="password" placeholder="password">
+    <input name="password" placeholder="password" autocomplete="off">
     <button>Submit</button>
   </form>
 <script type="text/javascript" src="scripts/scripts.js"></script>

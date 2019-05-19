@@ -50,11 +50,9 @@ router.post('/:username/log', function(req, res, next) {
       console.log(err)
       res.redirect('back')
     } else {
-      console.log(user)
       userId = user._id
       newFood.user.id = user._id
       newFood.user.username = user.username
-      console.log('the username is ', user.username)
       Entry.create(newFood, function(err, entry) {
         if(err) {
           console.log(err)
@@ -198,6 +196,7 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
         console.log(err)
       }else{
         goal = user.goal
+        console.log('the user goal is ', goal.weight)
       }
     })
 
@@ -233,8 +232,6 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
           day: meal.createdAt.getDate(),
           year: meal.createdAt.getFullYear()
         }
-        console.log(meal.name, mealDate, today)
-
         if(mealDate.month === today.month &&
           mealDate.day === today.day &&
           mealDate.year === today.year){

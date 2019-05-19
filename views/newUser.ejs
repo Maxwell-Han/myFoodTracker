@@ -1,0 +1,39 @@
+<% include ./partials/header %>
+<head>
+  <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width">
+    <title>MyFoodPal</title>
+    <link rel="stylesheet" type="text/css" href="/css/newUser.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <!-- Material design icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+</head>
+<body>
+  <h3>Welcome <%= username %></h3>
+  <h4>Fill in your details to get started</h4>
+  <form action="/setProfile" method="post" class="profile-form">
+    <label class="email-label" for="email">Email</label>
+      <input name="email" id="email" placeholder="email">
+    <div class="current-stats-label">Current Body Stats</div>
+      <label for="weight">Weight</label>
+        <input name="weight" id="weight" placeholder="current weight" autocomplete="off">
+      <label for="bodyFat">Body Fat Percentage</label>
+      <input name="bodyFat" id="bodyFat" placeholder="current bodyfat %" autocomplete="off">
+      <div class="goals-label">Current Body Stats</div>
+        <label for="goalWeight">Weight</label>
+          <input name="goalweight" id="goalWeight" placeholder="goal weight" autocomplete="off">
+        <label for="goalBodyFat">Body Fat Percentage</label>
+        <input name="goalBodyFat" id="goalBodyFat" placeholder="goal bodyfat %" autocomplete="off">
+    <div class="macro-labels">Macro Targets (in grams)</div>
+      <label for="carbs">Carb</label>
+        <input name="carbs" id="carbs" placeholder="daily carb intake" autocomplete="off">
+      <label for="fats">Fat</label>
+      <input name="fats" id="fats" placeholder="daily fat intake" autocomplete="off">
+      <label for="protein">Protein</label>
+      <input name="protein" id="protein" placeholder="daily protein intake" autocomplete="off">
+    <button>Submit</button>
+  </form>
+</body>
+<% include ./partials/footer %>

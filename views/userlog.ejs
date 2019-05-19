@@ -1,8 +1,11 @@
 <% include ./partials/header %>
 <head>
   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width">
     <title>MacroTracker</title>
     <link rel="stylesheet" type="text/css" href="/css/userlog.css">
+    <link rel="stylesheet" type="text/css" href="/css/responsive.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <!-- Material design icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
@@ -30,7 +33,7 @@
     <% }else{ %>
       <div class="heart entry-fav">N</div>
     <% } %>
-    <div class="options" id="<%= meal.id %>"><span class="edit">Edit</span> || <span class="delete">Delete</span></div>
+    <div class="options" id="<%= meal.id %>"><i class="edit material-icons">edit</i> || <i class="delete material-icons">delete_outline</i></div>
   <% }) %>
 </div>
 
@@ -39,11 +42,16 @@
     <input name="carb" class="new-entry-carb" placeholder="carbs">
     <input name="fat" class="new-entry-fat" placeholder="fat">
     <input name="protein" class="new-entry-protein" placeholder="protein">
-    <div class="favorite"><i class="material-icons">favorite_border</i></div>
-    <div class="ajax-post material-icons">add_circle</div>
+    <div class="favorite">
+      <i class="material-icons" id="favorite">favorite_border</i>
+    </div>
+    <div class="ajax-post">
+      <i class="material-icons" id="add-entry">add_circle</i>
+    </div>
 
   </form>
 </div>
+<a href="/testNewUser">go to new user page</a>
 <script type="text/javascript" src="/scripts/userlog.js"></script>
 <script type="text/javascript" src="/scripts/ajaxUpdate.js"></script>
 

@@ -1,0 +1,64 @@
+@media  (min-width: 501px) {
+  body {
+    background-color: white;
+  }
+  .outmost-container {
+    max-width: 800px;
+    border: 1px solid blue;
+  }
+
+  #arrow-left,
+  #arrow-right {
+    font-size: 38px;
+  }
+
+  .navbar-container,
+  .calorie-stats-container,
+  .outer-stats-container,
+  .log-grid-container,
+  .new-entry-form {
+    min-width: 0;
+  }
+  .navbar-container {
+    font-size: 1.25em;
+  }
+
+  #today {
+    font-size: 1.65em;
+  }
+
+  .calorie-stats-container {
+    font-size: 1em;
+  }
+
+  .stats-main-container {
+    font-size: 1em;
+    background-color: ivory;
+  }
+
+  .log-grid-container {
+    font-size: 1em;
+  }
+
+  input[name="name"] {
+    font-size: 2vw;
+  }
+
+  input[name="carb"],
+  input[name="fat"],
+  input[name="protein"] {
+    width: 5vw;
+  }
+
+  input[name=update-entry-protein],
+  input[name=update-entry-fat],
+  input[name=update-entry-carb],
+  input[name=update-entry-name]{
+    font-size: 1.65vw;
+    border: 1px solid gray;
+  }
+
+  input {
+    font-size: 1em;
+  }
+}
