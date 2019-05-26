@@ -3,3 +3,4 @@ newRoutes.js
 secret.ejs
 userlogDated.ejs
 tests.txt
+node_modules
