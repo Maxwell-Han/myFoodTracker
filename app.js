@@ -10,8 +10,11 @@ var mongoose = require('mongoose')
 
 // Using mongo atlas, connect to testFoods db
 const uri = `mongodb+srv://admin:${process.env.MACRO_APP_DB_KEY}@clusterm-t6qy8.mongodb.net/testFoods?retryWrites=true`
-mongoose.connect(uri, {
-  keepAlive: true,
+// mongoose.connect(uri, {
+//   keepAlive: true,
+// })
+mongoose.connect(uri).catch(function (reason) {
+    console.log('Unable to connect to the mongodb instance. Error: ', reason);
 })
 
 var User = require('./models/user')
