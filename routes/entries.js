@@ -28,63 +28,13 @@ router.get('/secret', function(req, res, next){
   }
 })
 
-// current date post
-router.post('/:username/log', function(req, res, next) {
-  //check if we have a dateObj sent
-  console.log('Hello from the best post route')
-
-  var name = req.body.name
-  var carb = req.body.carb
-  var fat = req.body.fat
-  var protein = req.body.protein
-  var newFood = {name, carb, fat, protein, user: {id:'', username: ''} }
-
-  if(req.body.dateObj){
-    console.log('!! WE HAVE A DATE OBJ SENT !!' , req.body.dateObj)
-    newFood.createdAt = req.body.dateObj
-  }
-  var userId = ''
-  console.log("THE NEW FOOD IS, ", newFood)
-  User.findOne({username: req.params.username}, function(err, user) {
-    if(err) {
-      console.log(err)
-      res.redirect('back')
-    } else {
-      userId = user._id
-      newFood.user.id = user._id
-      newFood.user.username = user.username
-      Entry.create(newFood, function(err, entry) {
-        if(err) {
-          console.log(err)
-        } else {
-          console.log(entry)
-          user.log.push(entry._id)
-          user.save()
-        }
-      })
-    }
-  })
-
-  // let userEntries = ''
-  // Entry.find({user.id: userId}, function(err, logs) {
-  //   if(err) {
-  //     console.log(err)
-  //   } else {
-  //     console.log(logs)
-  //     userEntries = logs
-  //   }
-  // })
-  return res.json(newFood)
-  // return res.render(`userlog` ,{ username: req.params.username })
-})
-
 // Post for a previous or future date
 // http://localhost:3000/tim/log/goto?day=14&month=4&year=2019
 router.post('/:username/log/goto', middleware.isLoggedIn, function(req, res, next) {
   console.log('we are making a POST Request for a specific date')
   //check if req.query dates are the same as today
   var queryDate = {
-    month: req.query.month - 1,
+    month: req.query.month * 1,
     day: req.query.day * 1,
     year: req.query.year * 1
   }
@@ -128,7 +78,6 @@ router.post('/:username/log/goto', middleware.isLoggedIn, function(req, res, nex
       console.log(err)
       res.redirect('back')
     } else {
-      console.log(user)
       userId = user._id
       newFood.user.id = user._id
       newFood.user.username = user.username
@@ -156,8 +105,62 @@ router.post('/:username/log/goto', middleware.isLoggedIn, function(req, res, nex
   //     userEntries = logs
   //   }
   // })
-  return res.render(`userlogDated` ,{ username: req.params.username })
+  // return res.render(`userlog` ,{ username: req.params.username })
+  return res.json(newFood)
 })
+
+// Current Date Post
+router.post('/:username/log', function(req, res, next) {
+  //check if we have a dateObj sent
+  console.log('Hello from the best post route')
+
+  var name = req.body.name
+  var carb = req.body.carb
+  var fat = req.body.fat
+  var protein = req.body.protein
+  var newFood = {name, carb, fat, protein, user: {id:'', username: ''} }
+
+  if(req.body.dateObj){
+    console.log('!! WE HAVE A DATE OBJ SENT !!' , req.body.dateObj)
+    newFood.createdAt = req.body.dateObj
+  }
+  var userId = ''
+  console.log("THE NEW FOOD IS, ", newFood)
+  User.findOne({username: req.params.username}, function(err, user) {
+    if(err) {
+      console.log(err)
+      res.redirect('back')
+    } else {
+      console.log('THE USER IN THE POST ROUTE IS ', user)
+      userId = user._id
+      newFood.user.id = user._id
+      newFood.user.username = user.username
+      Entry.create(newFood, function(err, entry) {
+        if(err) {
+          console.log(err)
+        } else {
+          console.log(entry)
+          user.log.push(entry._id)
+          user.save()
+        }
+      })
+    }
+  })
+
+  // let userEntries = ''
+  // Entry.find({user.id: userId}, function(err, logs) {
+  //   if(err) {
+  //     console.log(err)
+  //   } else {
+  //     console.log(logs)
+  //     userEntries = logs
+  //   }
+  // })
+  return res.json(newFood)
+  // return res.render(`userlog` ,{ username: req.params.username })
+})
+
+
 //NEW GET ROUTE
 router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, function(req, res) {
   console.log('HELLO FROM THE NEW GET ROUTE!!')

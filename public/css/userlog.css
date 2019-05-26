@@ -1,3 +1,7 @@
+.none {
+  display: none;
+}
+
 body {
   background-color: lightyellow;
   display: flex;
@@ -162,7 +166,7 @@ input[name="carb"],
 input[name="fat"],
 input[name="protein"] {
   width: 10vw;
-  text-align: right;
+  text-align: center;
 }
 
 input[class="new-entry-name"] {

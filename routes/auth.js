@@ -35,17 +35,18 @@ router.post('/signup', function(req, res, next) {
       }
       let username = req.body.username
       passport.authenticate('local')(req, res, function() {
-        res.render(`newUser`, {username})
+        res.redirect('/userProfileRedirect')
     })
   })
 })
 
-router.get('/testNewUser', function(req, res) {
+router.get('/userProfileRedirect', function(req, res) {
   let username = req.user.username
-  res.render('newUser', {username})
+  let email = req.user.email
+  res.render('newUser', {username, email})
 })
+
 router.get('/newUser/:username', function(req, res){
-  
   res.render('newUser')
 })
 

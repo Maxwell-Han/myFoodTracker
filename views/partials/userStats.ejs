@@ -3,22 +3,25 @@
 
   <div class="cal-target">
     <div class="cal-target-label">Target</div>
-    <div>1000</div>
+    <div id="cal-target">1000</div>
+    <div class="none" id="carb-goal"><%= macros.carbs %> </div>
+    <div class="none" id="fat-goal"><%= macros.fats %> </div>
+    <div class="none" id="protein-goal"><%= macros.protein %> </div>
   </div>
   <div>-</div>
   <div class="cal-consumed">
     <div class="cal-consumed-label">Consumed</div>
-    <div>400</div>
+    <div id="cal-consumed">0</div>
   </div>
   <div>+</div>
   <div class="cal-burned">
     <div class="cal-burned-label">Burned</div>
-    <div>100</div>
+    <div id="cal-burned">0</div>
   </div>
   <div>=</div>
   <div class="cal-remaining">
     <div class="cal-remaining-label">Remaining</div>
-    <div>800</div>
+    <div id="cal-remaining">0</div>
   </div>
 </div>
 
@@ -34,17 +37,17 @@
     </div>
     <div class="stats-container">
       <div class="stats-flex-container">
-        <div class="today-carb">C sum</div>
+        <div class="today-carb">0</div>
         <div id="of">of</div>
         <div class="carb-goal"><%= macros.carbs %></div>
       </div>
       <div class="stats-flex-container">
-        <div class="today-fat">F sum</div>
+        <div class="today-fat">0</div>
         <div id="of">of</div>
         <div class="fat-goal"><%= macros.fats %></div>
       </div>
       <div class="stats-flex-container">
-        <div class="today-protein">P Sum</div>
+        <div class="today-protein">0</div>
         <div id="of">of</div>
         <div class="protein-goal"><%= macros.protein %></div>
       </div>

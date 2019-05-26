@@ -104,9 +104,12 @@ ajaxPost.addEventListener('click', function(){
   //add new entry to list
 })
 
-//fix the url below!!!!
 function ajaxPostRequest(data) {
-  var url = '/tim/log'
+  var url = `/${location.href.split('/').slice(-2)[0]}/log`
+  if(location.href.includes('goto')) {
+    let urlArray = location.href.split('/').slice(-3)
+    url = `/${urlArray[0]}/${urlArray[1]}/${urlArray[2]}`
+  }
   var httpRequest = new XMLHttpRequest()
   if(!httpRequest) {
     console.log('unable to make request')
@@ -162,7 +165,40 @@ function deleteHandler(e){
   httpRequest.send()
 }
 //Calculate each macro and render to screen
-document.addEventListener("DOMContentLoaded", renderMacroSums)
+document.addEventListener("DOMContentLoaded", function(){
+  renderMacroSums()
+  calculateCalorieConsumed()
+}, false)
+
+document.addEventListener('DOMContentLoaded', function() {
+  calculateMacroGoal()
+  calculateRemainingCalories()
+})
+
+function calculateRemainingCalories() {
+  let consumed = parseInt(document.querySelector('#cal-consumed').textContent)
+  let target = parseInt(document.querySelector('#cal-target').textContent)
+  let remaining = target - consumed
+  document.querySelector('#cal-remaining').textContent = remaining
+}
+
+function calculateMacroGoal() {
+  let carbs = parseInt(document.querySelector('.carb-goal').textContent) * 4
+  let fat = parseInt(document.querySelector('.fat-goal').textContent) * 9
+  let protein = parseInt(document.querySelector('.protein-goal').textContent) * 4
+
+  let calories = carbs + fat + protein
+  document.querySelector('#cal-target').textContent = calories
+}
+
+function calculateCalorieConsumed() {
+  const macroObj = calculateMacros()
+  console.log(macroObj)
+  let carbSum = macroObj['carbSum'] * 4
+  let fatSum = macroObj['fatSum'] * 9
+  let proteinSum = macroObj['proteinSum'] * 4
+  document.querySelector('#cal-consumed').textContent = carbSum + fatSum + proteinSum
+}
 
 function renderMacroSums(){
   const sums = calculateMacros()
@@ -178,6 +214,7 @@ function calculateMacros(){
   const carbs = mapMacroValues(document.querySelectorAll('.entry-carb'))
   const fats = mapMacroValues(document.querySelectorAll('.entry-fat'))
   const protein = mapMacroValues(document.querySelectorAll('.entry-protein'))
+  if(!carbs) return
   return {
     carbSum: carbs,
     fatSum: fats,

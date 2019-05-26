@@ -34,7 +34,7 @@ router.post('/setProfile', function(req, res, next){
       res.redirect('back')
     } else {
       console.log(updatedUser, 'Successfully added profile details!')
-      res.json(data)
+      res.redirect(`/${req.user.username}/log`)
     }
   })
 })
