@@ -15,7 +15,32 @@ moment().format()
 */
 // GET current week entries AND all Favorites
 router.get('/:username/userStats', function(req, res, next) {
-  var startDate = moment().day(0)
+  var startDate = moment().day(0).hour(0).minute(0)
+  var endDate = moment()
+  Promise.all([
+    User.findOne( {username: req.params.username})
+      .select('macros'),
+    User.findOne( {username: req.params.username})
+      .populate({
+        path: 'log',
+        match: {favorite: true }
+      }),
+    User.find( {username: req.params.username})
+      .populate({
+        path: 'log',
+        match: {createdAt: {$gte: startDate, $lte: endDate} }
+      })
+  ]).then( ([userMacros, favQuery, entriesQuery]) => {
+    let macros = userMacros.macros
+    let favorites = JSON.stringify(favQuery.log) //array of favorited entries
+    let weeklyEntries = JSON.stringify(entriesQuery[0].log) //array of week's entries
+    res.render('userStats', {macros, favorites, weeklyEntries})
+  }).catch( e => res.send(e))
+})
+
+
+router.get('/:username/userStatsApiTest', function(req, res, next) {
+  var startDate = moment().day(0).hour(0)
   var endDate = moment()
   Promise.all([
     User.findOne( {username: req.params.username})
@@ -31,8 +56,7 @@ router.get('/:username/userStats', function(req, res, next) {
   ]).then( ([favQuery, entriesQuery]) => {
     let favorites = favQuery.log //array of favorited entries
     let weeklyEntries = entriesQuery[0].log //array of week's entries
-    res.json(favorites)
+    res.json(weeklyEntries)
   }).catch( e => res.send(e))
 })
-
 module.exports = router

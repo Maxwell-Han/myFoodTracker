@@ -1,0 +1,120 @@
+h3 {
+  color: red;
+}
+
+body {
+  font-size: 1.5em;
+}
+.outer-container {
+  display: grid;
+  grid-template-rows: auto;
+  border: 1px solid black;
+}
+
+.calories-grid {
+  margin: 5px;
+  border: 1px solid blue;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "cal-header cal-header"
+    "cal-subtitle-consumed cal-subtitle-allowed"
+    "cal-consumed cal-allowed"
+    "cal-icon cal-difference"
+}
+.cal-header {
+  grid-area: cal-header;
+}
+
+.cal-subtitle-consumed {
+  grid-area: cal-subtitle-consumed;
+}
+
+.cal-subtitle-allowed {
+  grid-area: cal-subtitle-allowed;
+}
+
+.cal-consumed {
+  grid-area: cal-consumed;
+}
+
+.cal-allowed {
+  grid-area: cal-allowed;
+}
+
+.cal-icon {
+  grid-area: cal-icon;
+}
+
+.cal-difference {
+  grid-area: cal-difference;
+}
+
+
+/* MACRO CARD */
+.macros-grid {
+  border: 1px solid blue;
+  margin: 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "macro-header macro-header macro-header"
+    "carb-title fat-title protein-title"
+    "targets-subtitle targets-subtitle targets-subtitle"
+    "carb-target fat-target protein-target"
+    "consumed-macros-subtitle consumed-macros-subtitle consumed-macros-subtitle"
+    "carb-consumed fat-consumed protein-consumed"
+    "macro-message macro-message macro-message";
+}
+
+.macro-header {
+  grid-area: macro-header;
+}
+
+.carb-title {
+  grid-area: carb-title;
+}
+
+.fat-title {
+  grid-area:fat-title;
+}
+
+.protein-title {
+  grid-area: protein-title;
+}
+
+.targets-subtitle {
+  grid-area: targets-subtitle;
+}
+
+.carb-target {
+  grid-area: carb-target;
+}
+
+.fat-target {
+  grid-area: fat-target;
+}
+
+.protein-target {
+  grid-area: protein-target;
+}
+.consumed-macros-subtitle {
+  grid-area: consumed-macros-subtitle;
+}
+
+.carb-balance {
+  grid-area: carb-consumed;
+}
+
+.fat-balance {
+  grid-area: fat-consumed;
+}
+
+.protein-balance {
+  grid-area: protein-consumed;
+}
+.macro-message {
+  grid-area: macro-message;
+}
