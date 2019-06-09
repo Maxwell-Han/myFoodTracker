@@ -112,7 +112,7 @@ router.post('/:username/log/goto', middleware.isLoggedIn, function(req, res, nex
 // Current Date Post
 router.post('/:username/log', function(req, res, next) {
   //check if we have a dateObj sent
-  console.log('Hello from the best post route')
+  console.log('Hello from today post route')
 
   var name = req.body.name
   var carb = req.body.carb
@@ -190,6 +190,7 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
     }
     today = getToday()
   }
+  console.log(currDate)
 
   let username = req.params.username
   let entries = null

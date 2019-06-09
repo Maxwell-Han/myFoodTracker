@@ -4,3 +4,4 @@ secret.ejs
 userlogDated.ejs
 tests.txt
 node_modules
+.DS_Store

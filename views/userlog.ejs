@@ -29,9 +29,9 @@
     <div class="entry-fat"><%=meal.fat%></div>
     <div class="entry-protein"><%=meal.protein%></div>
     <% if(meal.favorite){ %>
-      <div class="heart-filled entry-fav">Y</div>
+      <div class="material-icons">favorite</div>
     <% }else{ %>
-      <div class="heart entry-fav">N</div>
+      <div class="material-icons heart">favorite_border</div>
     <% } %>
     <div class="options" id="<%= meal.id %>"><i class="edit material-icons">edit</i> || <i class="delete material-icons">delete_outline</i></div>
   <% }) %>
@@ -39,9 +39,9 @@
 
   <form class="new-entry-form" action="/<%=username %>/log " method="post">
     <input name="name" class="new-entry-name" placeholder="Food or Meal Name">
-    <input name="carb" class="new-entry-carb" placeholder="carbs">
-    <input name="fat" class="new-entry-fat" placeholder="fat">
-    <input name="protein" class="new-entry-protein" placeholder="protein">
+    <input name="carb" class="new-entry-carb" placeholder="carbs" type="number" autocomplete="off">
+    <input name="fat" class="new-entry-fat" placeholder="fat" type="number" autocomplete="off">
+    <input name="protein" class="new-entry-protein" placeholder="protein" type="number" autocomplete="off">
     <div class="favorite">
       <i class="material-icons" id="favorite">favorite_border</i>
     </div>

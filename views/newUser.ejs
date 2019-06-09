@@ -18,21 +18,21 @@
       <input name="email" id="email" placeholder="email" value="<%= email %>">
     <div class="current-stats-label">Current Body Stats</div>
       <label for="weight">Weight</label>
-        <input name="weight" id="weight" placeholder="current weight" autocomplete="off">
+        <input name="weight" id="weight" placeholder="current weight" type="number" min="0" autocomplete="off">
       <label for="bodyFat">Body Fat Percentage</label>
-      <input name="bodyFat" id="bodyFat" placeholder="current bodyfat %" autocomplete="off">
-      <div class="goals-label">Current Body Stats</div>
-        <label for="goalWeight">Weight</label>
-          <input name="goalweight" id="goalWeight" placeholder="goal weight" autocomplete="off">
-        <label for="goalBodyFat">Body Fat Percentage</label>
-        <input name="goalBodyFat" id="goalBodyFat" placeholder="goal bodyfat %" autocomplete="off">
+        <input name="bodyFat" id="bodyFat" placeholder="current bodyfat %" type="number" min="1" max="50" step="0.10" autocomplete="off">
+      <div class="goals-label">Enter Your Goals</div>
+        <label for="goalWeight">Goal Weight</label>
+          <input name="goalweight" id="goalWeight" placeholder="goal weight" type="number" min="0" autocomplete="off">
+        <label for="goalBodyFat">Goal Body Fat Percentage</label>
+        <input name="goalBodyFat" id="goalBodyFat" placeholder="goal bodyfat %" type="number" min="1" max="50" step="0.10" autocomplete="off">
     <div class="macro-labels">Macro Targets (in grams)</div>
       <label for="carbs">Carb</label>
-        <input name="carbs" id="carbs" placeholder="daily carb intake" autocomplete="off">
+        <input name="carbs" id="carbs" placeholder="daily carb intake" type="number" min="0" autocomplete="off">
       <label for="fats">Fat</label>
-      <input name="fats" id="fats" placeholder="daily fat intake" autocomplete="off">
+      <input name="fats" id="fats" placeholder="daily fat intake" type="number" min="0" autocomplete="off">
       <label for="protein">Protein</label>
-      <input name="protein" id="protein" placeholder="daily protein intake" autocomplete="off">
+      <input name="protein" id="protein" placeholder="daily protein intake" type="number" min="0" autocomplete="off">
     <button>Submit</button>
   </form>
 </body>

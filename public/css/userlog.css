@@ -10,7 +10,9 @@ body {
 }
 .outmost-container {
   width: 96%;
+  height: 95vh;
   display: grid;
+  grid-template-rows: auto auto auto 1fr;
   grid-template-areas:
   "navbar"
   "calorie-container"
@@ -18,6 +20,11 @@ body {
   "log-container"
   "new-entry-form";
   grid-row-gap: 2vh;
+}
+
+.navbar-container, .calorie-stats-container, .outer-stats-container,
+.log-grid-container {
+  align-self: start;
 }
 
 #arrow-left,
@@ -208,5 +215,10 @@ input[name=update-entry-protein] {
 }
 
 .ajax-post:hover {
-  border: 3px solid green;
+  background-color: #3e8e41;
+}
+.ajax-post:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }

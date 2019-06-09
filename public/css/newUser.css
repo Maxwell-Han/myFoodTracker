@@ -1,3 +1,7 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 form {
   display: grid;
   grid-template-columns: 1fr;
@@ -15,6 +19,20 @@ input, button {
   margin: 2px;
 }
 
+form div {
+  color: green;
+  padding: 10px 0 0 0;
+}
+
+.form-options-container {
+  display: grid;
+  grid-template-columns: 35% 35%;
+  justify-content: space-around;
+}
+
+.form-options-container button {
+  border-radius: 4px;
+}
 
 @media  (min-width: 501px) {
   form {
