@@ -3,30 +3,43 @@
 }
 
 body {
-  background-color: lightyellow;
+  background-color: #efefef;
   display: flex;
   justify-content: center;
   font-family: 'Roboto', sans-serif;
+  margin: 0;
 }
 .outmost-container {
-  width: 96%;
   height: 95vh;
+  width: 100vw;
   display: grid;
-  grid-template-rows: auto auto auto 1fr;
+  grid-template-rows: auto auto auto auto 1fr;
   grid-template-areas:
+  "navbar-top"
   "navbar"
   "calorie-container"
   "outer-stats-container"
-  "log-container"
+  "log-grid-container"
   "new-entry-form";
-  grid-row-gap: 2vh;
+  grid-row-gap: 1.3vh;
 }
 
-.navbar-container, .calorie-stats-container, .outer-stats-container,
+.navbar-top, .navbar-container, .calorie-stats-container, .outer-stats-container,
 .log-grid-container {
   align-self: start;
+  background-color: white;
 }
 
+.navbar-top {
+  grid-area: navbar-top;
+  padding: 0.75em 1.25em 0.25em 1.25em;
+  background-color: #0070bf;
+  color: white;
+}
+.navbar-top a {
+  color:inherit;
+  text-decoration: none;
+ }
 #arrow-left,
 #arrow-right {
   font-size: 34px;
@@ -42,6 +55,7 @@ body {
 }
 .log-grid-container{
   display: grid;
+
   grid-template-columns: auto 1fr 1fr 1fr 1fr 1fr;
 }
 
@@ -49,6 +63,8 @@ body {
 /* NAVBAR STYLES */
 .navbar-container {
   font-size: 5vw;
+  padding: 0.6em;
+  background-color: white;
   display: flex;
   flex-direction: column;
   grid-area: navbar;
@@ -97,7 +113,6 @@ body {
 }
 .stats-main-container {
   font-size: 5vw;
-  background-color: ivory;
 }
 .stats-container {
   display: grid;
@@ -130,12 +145,16 @@ body {
 
 /* LOGGED ITEMS SECTION */
 .log-grid-container {
+  padding: 0.5em 0.75em 0.5em 0.75em;
   font-size: 3.5vw;
   justify-items: center;
   align-items: center;
-  grid-area: log-container;
-  background-color: whitesmoke;
+  grid-area: log-grid-container;
   border-radius: 12px;
+}
+
+.log-grid-container .entry-label {
+  font-size: 1.15em;
 }
 .entry-name, .entry-carb, .entry-fat, .entry-protein {
   width: 100%;
@@ -156,6 +175,7 @@ body {
 
 /* NEW ENTRY FORM */
 .new-entry-form {
+  padding: 0.5em;
   height: 5vh;
   display: flex;
   justify-content: space-between  ;
