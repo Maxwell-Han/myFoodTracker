@@ -175,6 +175,7 @@ body {
 
 /* NEW ENTRY FORM */
 .new-entry-form {
+  background-color: #e1e1e1;
   padding: 0.5em;
   height: 5vh;
   display: flex;
