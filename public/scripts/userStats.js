@@ -7,6 +7,7 @@ const macros = {
   fat: parseInt(document.querySelector('.fat-target').textContent),
   protein: parseInt(document.querySelector('.protein-target').textContent)
 }
+
 const consumed = document.querySelector('.cal-consumed')
 const allowed = document.querySelector('.cal-allowed')
 const calDifference = document.querySelector('.cal-difference')
@@ -26,8 +27,13 @@ const setWeeklyCal = () => {
   let caloriesSoFar = getDayCount() * dailyCal()
   allowed.textContent = caloriesSoFar
 }
-document.addEventListener("DOMContentLoaded", setWeeklyCal)
 
+const setPounds = () => {
+  let pounds = document.querySelector('.pounds')
+  let cals = parseInt(document.querySelector('.cal-difference').textContent)
+  let poundsNumb = Number(Math.round(cals/3500+'e2')+'e-2')
+  pounds.textContent  = poundsNumb
+}
 /*
   start with array of prev week food entries
   reduce through the array on the macro values and sum totals
@@ -65,7 +71,8 @@ const calculateCaloriesAsOfToday = () => {
   consumed.textContent =  actuallyConsumedCal + defaultConsumedCal
   calDifference.textContent = parseInt(allowed.textContent) - parseInt(consumed.textContent)
 }
-document.addEventListener('DOMContentLoaded', calculateCaloriesAsOfToday)
+
+
 
 // moment(entryData[0].createdAt).date()
 // get set of all created at week days
@@ -79,15 +86,15 @@ const getDaysWithEntries = () => {
     let dayIndex = moment(dateObj).day()
     return weekdays[dayIndex]
   })
-
-  const uniqueDays = loggedDays.reduce( ( accum = [], day) => {
+  loggedDays.unshift([])
+  const uniqueDays = loggedDays.reduce( ( accum, day) => {
     if(!accum.includes(day)) {
       accum.push(day)
       return accum
     }
     return accum
   })
-  return [uniqueDays].length
+  return uniqueDays.length
 }
 
 //get days missing between Sunday and today
@@ -104,6 +111,8 @@ const getDayCount = () => {
   let todayNumb = moment().day() + 1
   return todayNumb
 }
+
+
 
 //get macro targets for user
 // for every day that has entries, show the net consumption of each macro
@@ -132,4 +141,23 @@ const setMacroBalances = () => {
   fatBalance.textContent  = macroBalances.fat
   proteinBalance.textContent  = macroBalances.protein
 }
-document.addEventListener('DOMContentLoaded', setMacroBalances)
+
+
+
+// const calBalance = document.querySelector('.cal-balance')
+// const calDirection = document.querySelector('.cal-icon')
+//
+// const set calIcon = () => {
+//   if(calBalance > 0) {
+//     calDirection.textContent = "- "
+//   } else {
+//     calDirection.textContent = "+ "
+//   }
+// }
+
+document.addEventListener("DOMContentLoaded", () => {
+  setWeeklyCal()
+  calculateCaloriesAsOfToday()
+  setPounds()
+  setMacroBalances()
+})

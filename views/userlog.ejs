@@ -36,14 +36,26 @@
     <div class="options" id="<%= meal.id %>"><i class="edit material-icons">edit</i> || <i class="delete material-icons">delete_outline</i></div>
   <% }) %>
 </div>
+  <div class="add-from-fav">
+    <div class="add-fav-button">Add from favorites</div>
+    <div class="fav-container">
+      <div class="fav-header">
+        <h4 class="fav-title">Double click to pre-fill with a Favorite</h4>
+        <div class="close-fav"> X </div>
+      </div>
 
+      <% favorites.forEach( fav => { %>
+        <div class="fav-item"> <span class="fav-name"><%=fav.name%></span> -- <span class="fav-carb"><%=fav.carb%></span>c / <span class="fav-fat"><%=fav.fat%></span>f / <span class="fav-protein"><%=fav.protein%></span>p</div>
+      <% }) %>
+    </div>
+  </div>
   <form class="new-entry-form" action="/<%=username %>/log " method="post">
     <input name="name" class="new-entry-name" placeholder="Food or Meal Name">
     <input name="carb" class="new-entry-carb" placeholder="carbs" type="number" autocomplete="off">
     <input name="fat" class="new-entry-fat" placeholder="fat" type="number" autocomplete="off">
     <input name="protein" class="new-entry-protein" placeholder="protein" type="number" autocomplete="off">
     <div class="favorite">
-      <i class="material-icons" id="favorite">favorite_border</i>
+      <i class="material-icons false" id="favorite">favorite_border</i>
     </div>
     <div class="ajax-post">
       <i class="material-icons" id="add-entry">add_circle</i>

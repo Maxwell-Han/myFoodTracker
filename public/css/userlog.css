@@ -1,7 +1,9 @@
 .none {
   display: none;
 }
-
+.welcome {
+  display: none;
+}
 body {
   background-color: #efefef;
   display: flex;
@@ -10,7 +12,7 @@ body {
   margin: 0;
 }
 .outmost-container {
-  height: 95vh;
+  height: 100vh;
   width: 100vw;
   display: grid;
   grid-template-rows: auto auto auto auto 1fr;
@@ -20,10 +22,79 @@ body {
   "calorie-container"
   "outer-stats-container"
   "log-grid-container"
+  "add-from-fav"
   "new-entry-form";
   grid-row-gap: 1.3vh;
 }
 
+.add-from-fav {
+  grid-area: add-from-fav;
+  text-align: center;
+  background-color: #d6d6d642;
+  max-height: 35vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-fav-button {
+  color:red;
+  background:#DDD;
+  box-shadow: 0 0 3px -1px rgba(0,0,0,0.2);
+}
+
+.add-fav-button:active {
+    color:red;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.7);
+}
+
+.fav-container {
+  display: none;
+  z-index: 1;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 28%;
+  overflow: auto;
+  margin: 10vh auto;
+  background-color: aquamarine;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animateFavs;
+  animation-duration: 0.6s;
+}
+
+@keyframes animateFavs {
+  from {bottom: -50vh; opacity: 0}
+  to {bottom: 0; opacity: 1}
+}
+
+.fav-item {
+
+}
+
+.fav-header {
+  display: flex;
+  justify-content: space-around;
+}
+.fav-title {
+  margin: 0.7vh 0 1vh 0;
+}
+
+.close-fav {
+  justify-self: flex-end;
+  border: 1px solid black;
+  font-weight: bold;
+  padding: 0.2em;
+  border-radius: 100%;
+  background-color: black;
+  color: whitesmoke;
+}
+
+.fav-active {
+  font-size: 1.2em;
+  color: darkorange;
+}
 .navbar-top, .navbar-container, .calorie-stats-container, .outer-stats-container,
 .log-grid-container {
   align-self: start;
@@ -31,6 +102,8 @@ body {
 }
 
 .navbar-top {
+  height: 30px;
+  font-size: 1.3rem;
   grid-area: navbar-top;
   padding: 0.75em 1.25em 0.25em 1.25em;
   background-color: #0070bf;
@@ -177,7 +250,7 @@ body {
 .new-entry-form {
   background-color: #e1e1e1;
   padding: 0.5em;
-  height: 5vh;
+  height: 7vh;
   display: flex;
   justify-content: space-between  ;
   grid-area: new-entry-form;
@@ -224,12 +297,16 @@ input[name=update-entry-protein] {
 }
 
 .favorite, .ajax-post{
-  width: 6vw;
+  width: 6.5vw;
   height: 100%;
   display: flex;
   justify-content: center;
 }
 
+#favorite {
+  width: auto;
+  overflow: hidden;
+}
 #favorite, #add-entry {
   align-self: center;
 

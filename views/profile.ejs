@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 <head>
   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyFoodPal</title>
     <link rel="stylesheet" type="text/css" href="/css/profile.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -11,33 +11,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 <body>
-  <div class="navbar-container">
-    <div class="navbar-top">
-      <a href="/<%= username %>/updateProfile">Update Profile</a>
-        <a href="/<%= username %>/log"><i class="material-icons" id="today">today</i></a>
-      <a>Stats</a>
-    </div>
+
+  <div class="navbar-top">
+    <a class="center" href="/<%= username %>/updateProfile">Update Profile</a>
+      <a href="/<%= username %>/log"><i class="material-icons" id="today">today</i></a>
+    <a href="/<%= username %>/userStats">Stats</a>
   </div>
 
   <h3><%= username %>'s Profile</h3>
   <div class="outer-container">
     <div class="label">Email</div>
-      <div class="email"><%= email %>"</div>
+      <div class="email right"><%= email %>"</div>
     <div class="label">Current Weight</div>
-      <div class="weight number"><%= profile.weight %><span> lbs</span></div>
+      <div class="weight number right"><%= profile.weight %><span> lbs</span></div>
     <div class="label">Current Body Fat</div>
-      <div class="bodyFat number"><%= Math.ceil(profile.bodyFat * 100 * 100) / 100  %><span>%</span></div>
+      <div class="bodyFat number right"><%= Math.ceil(profile.bodyFat * 100 * 100) / 100  %><span>%</span></div>
     <div class="label">Goal Weight</div>
-      <div class="goalWeight number"><%= goal.weight %><span> lbs</span></div>
+      <div class="goalWeight number right"><%= goal.weight %><span> lbs</span></div>
     <div class="label">Goal BodyFat</div>
-      <div class="goalBodyFat number"><%= goal.bodyFat * 100 %><span>%</span></div>
+      <div class="goalBodyFat number right"><%= goal.bodyFat * 100 %><span>%</span></div>
     <div class="label macro-titles">Macro Targets</div>
     <div class="label">Carbs</div>
-      <div class="carbs number"><%= macros.carbs %><span>g</span></div>
+      <div class="carbs number right"><%= macros.carbs %><span>g</span></div>
     <div class="label">Fat</div>
-      <div class="fats number"><%= macros.fats %><span>g</span></div>
+      <div class="fats number right"><%= macros.fats %><span>g</span></div>
     <div class="label">Protein</div>
-      <div class="protein number"><%= macros.protein %><span>g</span></div>
+      <div class="protein number right"><%= macros.protein %><span>g</span></div>
+    <div>Daily Calories: </div>
+      <div class="right"><%= ((macros.fats * 9) + ((macros.protein + macros.carbs) * 4)) %></div>
+    </div>
   </div>
 </body>
+
 <% include ./partials/footer %>

@@ -37,6 +37,15 @@ var userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
 			ref: "Entry"
     }
+  ],
+  favorites : [
+    {
+      name: { type: String, default: 'Meal' },
+      carb: { type: Number, default: 0 },
+      fat: { type: Number, default: 0 },
+      protein: { type: Number, default: 0 },
+      favorite: {type: Boolean, default: false }
+    }
   ]
 })
 

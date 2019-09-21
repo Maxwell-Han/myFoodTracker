@@ -5,6 +5,7 @@ var middleware = require("../middleware/auth")
 var User = require('../models/user')
 var Entry = require('../models/entry')
 var moment = require('moment')
+
 moment().format()
 
 // const { createEntry } = require('../handlers/entries')
@@ -118,7 +119,8 @@ router.post('/:username/log', function(req, res, next) {
   var carb = req.body.carb
   var fat = req.body.fat
   var protein = req.body.protein
-  var newFood = {name, carb, fat, protein, user: {id:'', username: ''} }
+  var favorite = req.body.favorite
+  var newFood = {name, carb, fat, protein, user: {id:'', username: ''}, favorite }
 
   if(req.body.dateObj){
     console.log('!! WE HAVE A DATE OBJ SENT !!' , req.body.dateObj)
@@ -141,6 +143,18 @@ router.post('/:username/log', function(req, res, next) {
         } else {
           console.log(entry)
           user.log.push(entry._id)
+          let favoriteFood = {
+            name: name,
+            carb: carb,
+            fat: fat,
+            protein: protein,
+            favorite: favorite
+          }
+          console.log('THE VAL OF FAVORITE IS ', favoriteFood.favorite)
+          // if the food is favorited, add that food to the user's favorite array
+          if(favoriteFood.favorite) {
+            user.favorites.push(favoriteFood)
+          }
           user.save()
         }
       })
@@ -190,33 +204,22 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
     }
     today = getToday()
   }
-  console.log(currDate)
 
   let username = req.params.username
   let entries = null
   let goal = null
-  User.findOne({username: username}, 'goal').exec(function(err, user){
-      if(err){
-        console.log(err)
-      }else{
-        goal = user.goal
-        console.log('the user goal is ', goal.weight)
-      }
-    })
-
   let macros = null
-  User.findOne({username: username}, 'macros').exec(function(err, user){
-      if(err){
-        console.log(err)
-      }else{
-        macros = user.macros
-      }
-    })
-
-  User.findOne({username: username}, 'log').populate('log').exec(function(err, user){
+  let favorites = null
+  let query = User.findOne({username: username})
+  query.select('goal macros favorites log')
+  query.populate('log')
+  query.exec(function(err, user) {
     if(err) {
       console.log(err)
     } else {
+      goal = user.goal
+      macros = user.macros
+      favorites = user.favorites
       entries = user.log.map(function(meal){
         return {
           name: meal.name,
@@ -230,7 +233,8 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
       })
 
       //filter on entry createdAt date
-      todaysEntries = entries.filter(function(meal){
+      let todaysEntries = entries.filter(function(meal){
+
         let mealDate = {
           month: meal.createdAt.getMonth(),
           day: meal.createdAt.getDate(),
@@ -242,9 +246,9 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
             return meal
           }
       })
-      res.render('userlog', {username, goal, todaysEntries, currDate, macros, showTodayLink})
-    }
-  })
+      res.render('userlog', {username, goal, todaysEntries, currDate, macros, showTodayLink, favorites})
+      }
+    })
 })
 
 //SHOW main page: current day entries, daily target
@@ -398,14 +402,13 @@ router.delete("/:username/api/delete/:id", middleware.checkEntryOwnership, (req,
 router.put("/:username/api/update/:id", middleware.checkEntryOwnership, function(req, res){
   console.log('hello from the PUT route server!')
   console.log(req.params.id)
-  console.log(req.body.name, req.body.carb)
   let data = {
     carb: parseInt(req.body.carb),
     fat: parseInt(req.body.fat),
     protein: parseInt(req.body.protein),
     name: req.body.name,
-    favorite: req.body.favorite
   }
+
   Entry.findByIdAndUpdate(req.params.id, data, function(err, updatedEntry){
       if(err){
           res.redirect("back");

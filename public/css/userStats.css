@@ -1,6 +1,30 @@
+body {
+  background-color: #efefef;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+.navbar-top {
+  height: 30px;
+  font-size: 1.3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  padding: 0.75em 0.2em 0.25em 0.2em;
+  background-color: #0070bf;
+  color: white;
+}
+.navbar-top a {
+  color:inherit;
+  text-decoration: none;
+ }
+
 h4 {
   color: red;
-  margin-bottom: 2px;
+  margin: 0.5rem auto;
 }
 
 body {
@@ -9,11 +33,18 @@ body {
 .outer-container {
   display: grid;
   grid-template-rows: auto;
+  grid-template-columns: 1fr;
   border: 1px solid black;
+  grid-row-gap: 0.7rem;
+}
+
+.calories-grid, .macros-grid, .message-grid {
+  background-color: white;
+  justify-items: center;
 }
 
 .calories-grid {
-  margin: 5px;
+  padding: 5px;
   border: 1px solid blue;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -23,6 +54,7 @@ body {
     "cal-subtitle-consumed cal-subtitle-allowed"
     "cal-consumed cal-allowed"
     "cal-icon cal-difference"
+
 }
 .cal-header {
   grid-area: cal-header;
@@ -46,17 +78,19 @@ body {
 
 .cal-icon {
   grid-area: cal-icon;
+  justify-self: end;
 }
 
 .cal-difference {
   grid-area: cal-difference;
+  justify-self: start;
 }
 
 
 /* MACRO CARD */
 .macros-grid {
   border: 1px solid blue;
-  margin: 4px;
+  padding: 4px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
@@ -70,10 +104,21 @@ body {
     "macro-message macro-message macro-message";
 }
 
+
+.cal-subtitle-consumed, .cal-subtitle-allowed {
+  font-style: italic;
+}
 .macro-header {
   grid-area: macro-header;
 }
 
+.carb-title, .fat-title, .protein-title {
+  background-color: lightgoldenrodyellow;
+  border-radius: 25%;
+  height: 1.8rem;
+  width: 1.8rem;
+  text-align: center;
+}
 .carb-title {
   grid-area: carb-title;
 }
@@ -88,6 +133,7 @@ body {
 
 .targets-subtitle {
   grid-area: targets-subtitle;
+
 }
 
 .carb-target {
@@ -103,6 +149,11 @@ body {
 }
 .consumed-macros-subtitle {
   grid-area: consumed-macros-subtitle;
+}
+
+.targets-subtitle, .consumed-macros-subtitle {
+  justify-self: center;
+  font-style: italic;
 }
 
 .carb-balance {

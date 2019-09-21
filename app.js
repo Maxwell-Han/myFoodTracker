@@ -27,6 +27,7 @@ var authRoutes = require('./routes/auth')
 var entryRoutes = require('./routes/entries')
 var userProfileRoutes = require('./routes/userProfile')
 var userStats = require('./routes/userStats')
+var userFavorites = require('./routes/userFavorites')
 
 app.use(require('express-session')({
   secret: process.env.SECRET_KEY,
@@ -59,6 +60,7 @@ app.use(authRoutes)
 app.use(entryRoutes)
 app.use(userProfileRoutes)
 app.use(userStats)
+app.use(userFavorites)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

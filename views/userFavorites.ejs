@@ -1,0 +1,59 @@
+<% include ./partials/header %>
+
+<head>
+  <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width">
+    <title>MacroTracker</title>
+    <link rel="stylesheet" type="text/css" href="/css/userFavorites.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <!-- Material design icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+</head>
+<body>
+  <% include ./partials/navbarFavorites %>
+<h3>Your Favorite Items</h3>
+<div class="outer-container">
+  <!-- Form for new favorites also for editing favorites -->
+  <div class="fav-form-container">
+    <div class="form-title-bar">
+        <div class="form-title"><span class="add">Add</span><span class="edit">Edit</span> a Favorite Item</div>
+        <div class="clear-button">
+          <i class="material-icons" id="cancel">cancel</i>
+        </div>
+    </div>
+    <form class="fav-form" action="/<%=username %>/favorites " method="post">
+      <input name="name" class="new-entry-name" placeholder="Name">
+      <input name="carb" class="new-entry-carb" placeholder="carbs" type="number" autocomplete="off">
+      <input name="fat" class="new-entry-fat" placeholder="fat" type="number" autocomplete="off">
+      <input name="protein" class="new-entry-protein" placeholder="protein" type="number" autocomplete="off">
+      <input name="formId" class="formId">
+      <div class="form-button-container">
+        <i class="material-icons false" id="delete">delete_outline</i>
+        <i class="material-icons" id="save">save</i>
+        <i class="material-icons" id="add-entry">add_circle</i>
+      </div>
+    </form>
+  </div>
+  <h5>View and Edit Your Favorites</h5>
+  <div class="title-container">
+    <div>Favorite</div>
+    <div>Carb</div>
+    <div>Fat</div>
+    <div>Protein</div>
+  </div>
+  <% if(favorites) { %>
+    <% favorites.forEach( fav => { %>
+      <div class="fav-container">
+        <div class="fav-id"><%= fav._id %></div>
+        <div class="fav-name"><%=fav.name%></div>
+        <div class="fav-carb"><%=fav.carb%></div>
+        <div class="fav-fat"><%=fav.fat%></div>
+        <div class="fav-protein"><%=fav.protein%></div>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+<% include ./partials/footer %>
+<script type="text/javascript" src="/scripts/userFavorites.js"></script>

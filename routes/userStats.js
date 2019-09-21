@@ -34,7 +34,7 @@ router.get('/:username/userStats', function(req, res, next) {
     let macros = userMacros.macros
     let favorites = JSON.stringify(favQuery.log) //array of favorited entries
     let weeklyEntries = JSON.stringify(entriesQuery[0].log) //array of week's entries
-    res.render('userStats', {macros, favorites, weeklyEntries})
+    res.render('userStats', {macros, favorites, weeklyEntries, username: req.user.username, showTodayLink: true})
   }).catch( e => res.send(e))
 })
 

@@ -71,6 +71,27 @@ const date = {
   }
 }
 
+const favorite = document.getElementById('favorite')
+const setFavoriteHandler = () => {
+  favorite.addEventListener('click', (e) => {
+    console.log('the current target is ', e.currentTarget)
+    console.log('the classNames are ', e.currentTarget.className)
+    let targ  = e.currentTarget
+    let classNames = favorite.className.split(' ')
+    if(classNames.includes('false')) {
+      targ.className = 'material-icons true'
+      targ.textContent = 'favorite_filled'
+    } else {
+      targ.className = 'material-icons false'
+      targ.textContent = 'favorite_border'
+    }
+  })
+}
+document.addEventListener('DOMContentLoaded', function() {
+  setFavoriteHandler()
+})
+
+
 
 const ajaxPost = document.querySelector('.ajax-post')
 
@@ -87,12 +108,21 @@ function checkAjaxAndMomentDates(){
 
 ajaxPost.addEventListener('click', function(){
   console.log('clicked the ajax post')
+  const fav = document.getElementById('favorite')
+  const favClass = fav.className.split(' ')
+  let favBool = null
+  if(favClass[favClass.length - 1] === 'false') {
+    favBool = false
+  } else {
+    favBool = true
+  }
   //grab form data
   let data = {
     name: document.querySelector('.new-entry-name').value,
     carb: parseInt(document.querySelector('.new-entry-carb').value),
     fat: parseInt(document.querySelector('.new-entry-fat').value),
-    protein: parseInt(document.querySelector('.new-entry-protein').value)
+    protein: parseInt(document.querySelector('.new-entry-protein').value),
+    favorite: favBool
   }
   console.log('the value of checkAjaxAndMomentDates is ', checkAjaxAndMomentDates())
   if(!checkAjaxAndMomentDates()){
@@ -250,3 +280,69 @@ function getRemainingMacros(){
 //   // /:username/log/api/delete?id=xxxxxxxx
 //   var parent =
 // }
+
+const addFavButton = document.querySelector('.add-fav-button')
+const closeFavButton = document.querySelector('.close-fav')
+const favContainer = document.querySelector('.fav-container')
+
+function favButtonHandler() {
+  addFavButton.addEventListener('click', () => {
+    addFavButton.style.display = 'none'
+
+    favContainer.style.display = "inline-block"
+  })
+}
+
+function addCloseFavHandler() {
+  closeFavButton.addEventListener('click', () => {
+    addFavButton.style.display = "inline-block"
+    favContainer.style.display = "none"
+  })
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    favButtonHandler()
+    addCloseFavHandler()
+})
+
+/*
+The user favorites should be added as part of the GET request and
+rendered in using EJS
+The favorite button should trigger the display of the favorites menu
+and hide itself at the same time
+*/
+
+let lastFav = null
+function favItemSelection() {
+  const favorites = document.querySelectorAll('.fav-item')
+  favorites.forEach( fav => {
+    fav.addEventListener('click', (e) => {
+      let currentClassNames = fav.className
+      if(lastFav){
+        lastFav.className = 'fav-item'
+      }
+      lastFav = fav
+      if(currentClassNames.includes('fav-active')) {
+        console.log('updating new entry with favorite details')
+        setFavEntry(fav)
+      }
+      e.currentTarget.className += ' fav-active'
+      console.log('triggered the event listener')
+    })
+  })
+}
+
+const setFavEntry = (favorite) => {
+  let favSpans = favorite.querySelectorAll('span')
+  let name = favSpans[0].textContent
+  let carb = favSpans[1].textContent
+  let fat = favSpans[2].textContent
+  let protein = favSpans[3].textContent
+
+  document.querySelector('.new-entry-name').value = name
+  document.querySelector('.new-entry-carb').value = carb
+  document.querySelector('.new-entry-fat').value = fat
+  document.querySelector('.new-entry-protein').value = protein
+}
+
+document.addEventListener("DOMContentLoaded", favItemSelection)

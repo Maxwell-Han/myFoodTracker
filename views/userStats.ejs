@@ -1,7 +1,8 @@
 <% include ./partials/header %>
+
 <head>
   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MacroTracker</title>
     <link rel="stylesheet" type="text/css" href="/css/userStats.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -11,19 +12,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 <body>
-  <h4>Stats</h4>
+
   <div class="outer-container">
+      <% include ./partials/navbarStats %>
+      <h4>Current Progress</h4>
     <div class="calories-grid">
-      <div class="cal-header">This Week's Consumption</div>
+      <div class="cal-header">Cals: Sun-Today</div>
       <div class="cal-subtitle-consumed">Consumed</div>
       <div class="cal-subtitle-allowed">Allowed</div>
-      <div class="cal-consumed">###</div>
-      <div class="cal-allowed">###</div>
+      <div class="cal-consumed">0</div>
+      <div class="cal-allowed">0</div>
       <div class="cal-icon">+/-</div>
-      <div class="cal-difference">###</div>
+      <div class="cal-difference"></div>
     </div>
     <div class="macros-grid">
-      <div class="macro-header">Macros</div>
+      <div class="macro-header">Today's Macros</div>
       <div class="carb-title">C</div>
       <div class="fat-title">F</div>
       <div class="protein-title">P</div>
@@ -31,17 +34,15 @@
         <div class="carb-target"><%=macros.carbs %></div>
         <div class="fat-target"><%=macros.fats %></div>
         <div class="protein-target"><%=macros.protein %></div>
-      <div class="consumed-macros-subtitle">Consumption vs Target +/-</div>
-        <div class="carb-balance">carb #</div>
-        <div class="fat-balance">fat #</div>
-        <div class="protein-balance">protein #</div>
-      <div class="macro-message">You are eating too/not enough xxxxx</div>
+      <div class="consumed-macros-subtitle">Remaining</div>
+        <div class="carb-balance"><%=macros.carbs %></div>
+        <div class="fat-balance"><%=macros.fats %></div>
+        <div class="protein-balance"><%=macros.protein %></div>
+    </div>
+    <div class="message-grid">
+      <div>At this rate, you are on track to lose <span class="pounds">##</span> lbs this week!</div>
     </div>
   </div>
-
-  <div>Total Calories Consumed = <span class="consumed"></span</div>
-  <div>Total Calories Allowed = <span class="cal-limit"></span></div>
-  <div><%= macros %></div>
 
   <!-- Data placeholders -->
   <div style="display: none;">
