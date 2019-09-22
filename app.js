@@ -32,7 +32,7 @@ var userFavorites = require('./routes/userFavorites')
 app.use(require('express-session')({
   secret: process.env.SECRET_KEY,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized:  false
 }))
 // serve static files from /public
 app.use(express.static(__dirname + '/public'))
