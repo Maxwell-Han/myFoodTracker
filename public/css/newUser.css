@@ -1,7 +1,15 @@
-body {
-  font-family: 'Roboto', sans-serif;
+body, html {
+  margin: 0;
 }
 
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #efefef;
+}
+h3, h4 {
+  margin: 0.6vh;
+  text-align: center;
+}
 form {
   display: grid;
   grid-template-columns: 1fr;
@@ -15,6 +23,7 @@ label, button {
 input, button {
   height: 6vh;
   border: 1px solid gray;
+  border-radius: 3px;
   display: border-box;
   margin: 2px;
 }
@@ -35,55 +44,11 @@ form div {
 }
 
 @media  (min-width: 501px) {
-  form {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-areas:
-      "email-label email-input"
-      "current-stats-label weight-input"
-      "current-stats-label body-fat-input"
-      "macro-labels carbs-input"
-      "macro-labels fat-input"
-      "macro-labels protein-input"
-      "button button";
+  html {
+    background-color: white;
   }
-
-  .email-label{
-    grid-area: email-label;
-  }
-
-  .current-stats-label {
-    grid-area: current-stats-label;
-  }
-
-  .macro-labels {
-    grid-area: macro-labels
-  }
-
-  input[name=email] {
-    grid-area: email-input;
-  }
-
-  input[name=weight]{
-    grid-area: weight-input;
-  }
-  input[name=body-fat] {
-    grid-area: body-fat-input;
-  }
-  input[name=carbs] {
-    grid-area: carbs-input;
-  }
-
-  input[name=fats] {
-    grid-area: fat-input;
-  }
-
-  input[name=protein] {
-    grid-area: protein-input;
-  }
-  button {
-    grid-area: button;
-    width: 50%;
-    justify-self: center;
+  body {
+    width: 800px;
+    margin: 0 auto;
   }
 }

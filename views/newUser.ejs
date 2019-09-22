@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 <head>
   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyFoodPal</title>
     <link rel="stylesheet" type="text/css" href="/css/newUser.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -11,8 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </head>
 <body>
-  <h3>Welcome <%= username %></h3>
-  <h4>Fill in your details to get started</h4>
+  <h3>Welcome <%=username %></h3>
+  <h3>Fill in your details to get started</h3>
   <form action="/setProfile" method="post" class="profile-form">
     <label class="email-label" for="email">Email</label>
       <input name="email" id="email" placeholder="email" value="<%= email %>">

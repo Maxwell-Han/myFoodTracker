@@ -3,16 +3,16 @@ var express = require('express')
 var mongoose = require('mongoose')
 
 //comment out to use mongo atlas
-mongoose.set('debug', true)
-mongoose.connect('mongodb://localhost:27017/testmacros', {
-  keepAlive: true,
-})
+// mongoose.set('debug', true)
+// mongoose.connect('mongodb://localhost:27017/testmacros', {
+//   keepAlive: true,
+// })
 
 // Using mongo atlas, connect to testFoods db
-// const uri = `mongodb+srv://admin:${process.env.MACRO_APP_DB_KEY}@clusterm-t6qy8.mongodb.net/testFoods?retryWrites=true`
-// mongoose.connect(uri).catch(function (reason) {
-//     console.log('Unable to connect to the mongodb instance. Error: ', reason);
-// })
+const uri = `mongodb+srv://admin:${process.env.MACRO_APP_DB_KEY}@clusterm-t6qy8.mongodb.net/testFoods?retryWrites=true`
+mongoose.connect(uri).catch(function (reason) {
+    console.log('Unable to connect to the mongodb instance. Error: ', reason);
+})
 
 var User = require('./models/user')
 var Entry = require('./models/entry')

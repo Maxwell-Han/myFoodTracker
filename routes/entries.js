@@ -69,9 +69,9 @@ router.post('/:username/log/goto', middleware.isLoggedIn, function(req, res, nex
   }
 
   var name = req.body.name
-  var carb = req.body.carb
-  var fat = req.body.fat
-  var protein = req.body.protein
+  var carb = req.body.carb || 0
+  var fat = req.body.fat || 0
+  var protein = req.body.protein || 0
   var newFood = {name, carb, fat, protein, user: {id:'', username: ''}, createdAt: newCreatedAtDate() }
   var userId = ''
   User.findOne({username: req.params.username}, function(err, user) {
@@ -116,9 +116,9 @@ router.post('/:username/log', function(req, res, next) {
   console.log('Hello from today post route')
 
   var name = req.body.name
-  var carb = req.body.carb
-  var fat = req.body.fat
-  var protein = req.body.protein
+  var carb = req.body.carb || 0
+  var fat = req.body.fat || 0
+  var protein = req.body.protein || 0
   var favorite = req.body.favorite
   var newFood = {name, carb, fat, protein, user: {id:'', username: ''}, favorite }
 

@@ -1,8 +1,6 @@
 body, html{
     margin:0 auto;
     padding:0;
-    min-width: 100vw;
-    min-height: 100vh;
 }
 
 body {
@@ -10,7 +8,6 @@ body {
   font-size: 1.6em;
   background-color: #efefef;
   box-sizing: border-box;
-  border: 1px solid blue;
 }
 
 .container {
@@ -18,19 +15,21 @@ body {
   min-height: 100vh;
 }
 
-h3 {
+h4 {
   text-align: center;
-  margin:1vh auto;
+  margin-top: 1vh;
+  margin-bottom: 0;
 }
 .navbar-top {
-  height: 30px;
+  box-sizing: border-box;
+  height: 10%;
   font-size: 1.3rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   justify-items: center;
-  padding: 0.3em 1em 1em 1em;
+  padding: 0.3em 1em 0.4em 1em;
   background-color: #0070bf;
   color: white;
 }
@@ -58,7 +57,9 @@ h3 {
   background-color: aliceblue;
   border-radius: 13px;
   align-items: end;
-  height: auto;
+  max-height: 76vh;
+  overflow: auto;
+
 }
 
 .macro-titles {
@@ -69,12 +70,10 @@ h3 {
 .right {
   justify-self: end;
 }
-/* .email {
-  grid-column: 3 / span 2;
+
+@media  (min-width: 501px) {
+  body {
+    width: 800px;
+    margin: 0 auto;
+  }
 }
-
-
-
-.number {
-  justify-self: end;
-*/

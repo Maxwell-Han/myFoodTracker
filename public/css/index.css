@@ -1,0 +1,38 @@
+html, body {
+  margin: 0;
+  width: 100%
+}
+
+body {
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+h3 {
+  text-align: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 40vh;
+}
+
+a {
+  text-decoration: none;
+  text-align: center;
+  color: blue;
+  font-size: 1.2rem;
+}
+
+.button {
+  margin: 1vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  width: 70vw;
+  height: 10vh;
+  background-color: #efefef;
+}

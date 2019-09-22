@@ -79,10 +79,10 @@ router.get('/:username/favorites', function(req, res, next) {
 
 router.post('/:username/favorites', function(req, res, next) {
     let newFav = {
-      name: req.body.name,
-      carb: req.body.carb,
-      fat: req.body.fat,
-      protein: req.body.protein,
+      name: req.body.name || 'new entry',
+      carb: req.body.carb || 0,
+      fat: req.body.fat || 0,
+      protein: req.body.protein || 0,
       favorite: true
     }
 

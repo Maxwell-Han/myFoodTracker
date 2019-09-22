@@ -1,11 +1,20 @@
 <% include ./partials/header %>
 <head>
   <meta charset="utf-8">
-    <title>MacroTracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <title>My Food Buddy</title>
 </head>
 <body>
-  <div>Welcome to Macro Tracker</div>
-  <a href="/login">Log in</a>
-  <a href="/signup">Sign Up</a>
+  <h3>Welcome to My Food Buddy</h3>
+  <div class="container">
+    <div class="button">
+      <a href="/login">Log in as an existing user</a>
+    </div>
+    <div class="button">
+      <a href="/signup">Sign up as a new user</a>
+    </div>
+  </div>
 
 <% include ./partials/footer %>

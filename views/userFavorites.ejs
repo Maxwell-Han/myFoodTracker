@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MacroTracker</title>
     <link rel="stylesheet" type="text/css" href="/css/userFavorites.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -36,24 +36,26 @@
       </div>
     </form>
   </div>
-  <h5>View and Edit Your Favorites</h5>
-  <div class="title-container">
-    <div>Favorite</div>
-    <div>Carb</div>
-    <div>Fat</div>
-    <div>Protein</div>
+  <div class="inner-container">
+    <h5>Select an Existing Favorite to Edit</h5>
+    <div class="title-container">
+      <div>Favorite</div>
+      <div>Carb</div>
+      <div>Fat</div>
+      <div>Protein</div>
+    </div>
+    <% if(favorites) { %>
+      <% favorites.forEach( fav => { %>
+        <div class="fav-container">
+          <div class="fav-id"><%= fav._id %></div>
+          <div class="fav-name"><%=fav.name%></div>
+          <div class="fav-carb"><%=fav.carb%></div>
+          <div class="fav-fat"><%=fav.fat%></div>
+          <div class="fav-protein"><%=fav.protein%></div>
+        </div>
+      <% }) %>
+    <% } %>
   </div>
-  <% if(favorites) { %>
-    <% favorites.forEach( fav => { %>
-      <div class="fav-container">
-        <div class="fav-id"><%= fav._id %></div>
-        <div class="fav-name"><%=fav.name%></div>
-        <div class="fav-carb"><%=fav.carb%></div>
-        <div class="fav-fat"><%=fav.fat%></div>
-        <div class="fav-protein"><%=fav.protein%></div>
-      </div>
-    <% }) %>
-  <% } %>
 </div>
 <% include ./partials/footer %>
 <script type="text/javascript" src="/scripts/userFavorites.js"></script>

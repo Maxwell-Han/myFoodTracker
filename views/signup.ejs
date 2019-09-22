@@ -1,16 +1,22 @@
 <% include ./partials/header %>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MacroTracker</title>
-    <link rel="stylesheet" type="text/css" href="../css/userlog.css">
+    <link rel="stylesheet" type="text/css" href="/css/signup.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div>Welcome to Macro Tracker</div>
-  <div>Please sign up</div>
-  <form action="/signup" method="post">
-    <input name="username" placeholder="username">
-    <input name="email" placeholder="email">
-    <input name="password" placeholder="password">
-    <button>Sign Up</button>
-  </form>
+  <h3>Sign up with a username</h3>
+  <div class="container">
+    <form action="/signup" method="post">
+      <label>Username: </label>
+        <input name="username" placeholder="username">
+      <label>Email: </label>
+        <input name="email" placeholder="email">
+      <label>Password </label>
+      <input name="password" placeholder="password">
+      <button>Sign Up</button>
+    </form>
+  </div>
 <% include ./partials/footer %>

@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 <head>
   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MacroTracker</title>
     <link rel="stylesheet" type="text/css" href="/css/userlog.css">
     <link rel="stylesheet" type="text/css" href="/css/responsive.css">
@@ -21,18 +21,13 @@
   <div class="entry-label">Carbs</div>
   <div class="entry-label">Fats</div>
   <div class="entry-label">Protein</div>
-  <div class="entry-label">Favorite</div>
   <div class="entry-label edit-options">Options</div>
   <% todaysEntries.forEach( meal => { %>
     <div class="entry-name"><%=meal.name%></div>
     <div class="entry-carb"><%=meal.carb%></div>
     <div class="entry-fat"><%=meal.fat%></div>
     <div class="entry-protein"><%=meal.protein%></div>
-    <% if(meal.favorite){ %>
-      <div class="material-icons">favorite</div>
-    <% }else{ %>
-      <div class="material-icons heart">favorite_border</div>
-    <% } %>
+
     <div class="options" id="<%= meal.id %>"><i class="edit material-icons">edit</i> || <i class="delete material-icons">delete_outline</i></div>
   <% }) %>
 </div>

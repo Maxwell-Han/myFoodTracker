@@ -1,0 +1,35 @@
+html, body {
+  margin: 0;
+  width: 100%
+}
+
+body {
+  background-color: #efefef;
+  font-family: 'Roboto', sans-serif;
+}
+
+h3 {
+  text-align: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 2vw;
+}
+
+input {
+  border: 1px solid black;
+  border-radius: 4px;
+  height: 7vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin: 2vh;
+  height: 7vh;
+  border-radius: 4px;
+}

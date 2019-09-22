@@ -144,20 +144,23 @@ const setMacroBalances = () => {
 
 
 
-// const calBalance = document.querySelector('.cal-balance')
-// const calDirection = document.querySelector('.cal-icon')
-//
-// const set calIcon = () => {
-//   if(calBalance > 0) {
-//     calDirection.textContent = "- "
-//   } else {
-//     calDirection.textContent = "+ "
-//   }
-// }
+const calBalance = document.querySelector('.cal-balance')
+const calDirection = document.querySelector('.cal-icon')
+
+const setCalIcon = () => {
+  if(calBalance > 0) {
+    calDirection.textContent = "- "
+    calDirection.style.color = "red"
+  } else {
+    calDirection.textContent = "+ "
+    calDirection.style.color = "green"
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   setWeeklyCal()
   calculateCaloriesAsOfToday()
   setPounds()
   setMacroBalances()
+  setCalIcon()
 })

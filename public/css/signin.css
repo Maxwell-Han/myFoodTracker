@@ -1,15 +1,25 @@
+html, body {
+  margin: 0;
+  width: 100%
+}
+
+body {
+  background-color: #efefef;
+  font-family: 'Roboto', sans-serif;
+}
 
 .title{
-  font-size: 4vw;;
+  font-size: 1.4rem;
   text-align: center;
+  margin: 2vh 0 0 0;
 }
 
 .signin-container {
   margin: auto;
   display: flex;
   flex-direction: column;
-  height: 30%;
-  width: 40%;
+  height: 32vh;
+  width: 80%;
   justify-content: center;
 }
 
@@ -17,6 +27,6 @@ input, button{
   margin-top: 5px;
   border: solid lightblue;
   border-radius: 5px;
-  height: 5vh;
-  font-size: 2vw;
+  height: 9vh;
+  font-size: 1rem;
 }

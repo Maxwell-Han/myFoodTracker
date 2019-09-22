@@ -4,11 +4,11 @@ for(let i = 0; i < editButtons.length; i++){
 }
 
 function showEdit(e){
+  console.log(e.currentTarget)
   let edit = e.currentTarget
   let optionsDiv = edit.parentElement
   let id = edit.parentElement.id
-  let favorite = edit.parentElement.previousElementSibling
-  let protein = favorite.previousElementSibling
+  let protein = optionsDiv.previousElementSibling
   let fat = protein.previousElementSibling
   let carbs = fat.previousElementSibling
   let name = carbs.previousElementSibling
@@ -17,14 +17,8 @@ function showEdit(e){
   let newProtein = document.createElement('input')
   let newFat = document.createElement('input')
   let newCarbs = document.createElement('input')
-  let newFavorite = document.createElement('input')
+
   let newName = document.createElement('input')
-  newFavorite.type = "checkbox"
-  if(favorite.className === "heart-filled"){
-    newFavorite.value = "false"
-  }else{
-    newFavorite.value = "true"
-  }
 
   newProtein.value = protein.textContent
   newProtein.name = "update-entry-protein"
@@ -38,7 +32,7 @@ function showEdit(e){
   protein.parentNode.replaceChild(newProtein, protein)
   fat.parentNode.replaceChild(newFat, fat)
   carbs.parentNode.replaceChild(newCarbs, carbs)
-  favorite.parentNode.replaceChild(newFavorite, favorite)
+
   name.parentNode.replaceChild(newName, name)
 
   let newOptions = createEditOptions()
@@ -53,7 +47,6 @@ function showEdit(e){
     newProtein.parentNode.replaceChild(protein, newProtein)
     newFat.parentNode.replaceChild(fat, newFat)
     newCarbs.parentNode.replaceChild(carbs, newCarbs)
-    newFavorite.parentNode.replaceChild(favorite, newFavorite)
     newName.parentNode.replaceChild(name, newName)
   })
 
@@ -63,7 +56,6 @@ function showEdit(e){
       fat: parseInt(newFat.value),
       protein: parseInt(newProtein.value),
       name: newName.value,
-      favorite: newFavorite.checked
     }
     editHandler(id, data)
   })
