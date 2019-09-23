@@ -72,7 +72,8 @@ router.post('/:username/log/goto', middleware.isLoggedIn, function(req, res, nex
   var carb = req.body.carb || 0
   var fat = req.body.fat || 0
   var protein = req.body.protein || 0
-  var newFood = {name, carb, fat, protein, user: {id:'', username: ''}, createdAt: newCreatedAtDate() }
+  var favorite = req.body.favorite
+  var newFood = {name, carb, fat, protein, user: {id:'', username: ''}, createdAt: newCreatedAtDate(), favorite }
   var userId = ''
   User.findOne({username: req.params.username}, function(err, user) {
     if(err) {
@@ -87,26 +88,23 @@ router.post('/:username/log/goto', middleware.isLoggedIn, function(req, res, nex
         if(err) {
           console.log(err)
         } else {
-          console.log(entry)
-          console.log('the food user is ', user)
-          console.log('the users log has ', user.log)
           user.log.push(entry._id)
+          let favoriteFood = {
+            name: name,
+            carb: carb,
+            fat: fat,
+            protein: protein,
+            favorite: favorite
+          }
+          if(favoriteFood.favorite) {
+            user.favorites.push(favoriteFood)
+          }
           user.save()
         }
       })
     }
   })
 
-  // let userEntries = ''
-  // Entry.find({user.id: userId}, function(err, logs) {
-  //   if(err) {
-  //     console.log(err)
-  //   } else {
-  //     console.log(logs)
-  //     userEntries = logs
-  //   }
-  // })
-  // return res.render(`userlog` ,{ username: req.params.username })
   return res.json(newFood)
 })
 

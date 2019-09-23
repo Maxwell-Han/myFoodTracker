@@ -47,7 +47,7 @@
   input[name="carb"],
   input[name="fat"],
   input[name="protein"] {
-    width: 5vw;
+    width: 8vw;
   }
 
   input[name=update-entry-protein],
