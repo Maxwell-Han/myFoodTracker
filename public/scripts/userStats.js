@@ -1,4 +1,4 @@
-
+// grab user data from json
 const favData = JSON.parse(document.querySelector('.favorites').textContent)
 const entryData = JSON.parse(document.querySelector('.weekly-entries').textContent)
 
@@ -39,14 +39,14 @@ const setPounds = () => {
   reduce through the array on the macro values and sum totals
 */
 const getConsumedMacros = () => {
-  var initialVal = {
+  let initialVal = {
     carb: 0,
     fat: 0,
     protein: 0
   }
-  var arr = entryData.slice()
+  let arr = entryData.slice()
   arr.unshift(initialVal)
-  var result = arr.reduce( (accumObj, entryObj) => {
+  let result = arr.reduce( (accumObj, entryObj) => {
       accumObj.carb += entryObj.carb
       accumObj.fat += entryObj.fat
       accumObj.protein += entryObj.protein
@@ -55,9 +55,8 @@ const getConsumedMacros = () => {
   return result
 }
 
-
-
 // based on day of week, get total cal consumption and fill in missing days with default consumption
+// days with no entries will be filled with full calorie allowance so overall progress is not under stated
 const calculateCaloriesAsOfToday = () => {
   let numbDaysSoFar = getDayCount()
   let numbDaysWithEntries = getDaysWithEntries()
@@ -72,12 +71,8 @@ const calculateCaloriesAsOfToday = () => {
   calDifference.textContent = parseInt(allowed.textContent) - parseInt(consumed.textContent)
 }
 
-
-
-// moment(entryData[0].createdAt).date()
 // get set of all created at week days
 // get count of how many days until today don't have entries
-// days with no entries should be assigned to meet calorie limit
 const weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
 const getDaysWithEntries = () => {
@@ -97,28 +92,11 @@ const getDaysWithEntries = () => {
   return uniqueDays.length
 }
 
-//get days missing between Sunday and today
-// takes an array of logged days
-const getMissingDays = (loggedDays) => {
-  let todayNumb = moment().day()
-  let currentWeekArr = weekdays.slice(0, todayNumb + 1)
-  return currentWeekArr.filter( day => {
-    if(!loggedDays.includes(day)) return day
-  })
-}
-
 const getDayCount = () => {
   let todayNumb = moment().day() + 1
   return todayNumb
 }
 
-
-
-//get macro targets for user
-// for every day that has entries, show the net consumption of each macro
-/*
-  total number of days with entries * daily macro intake - total number of days with entries * actual macro intake
-*/
 const calculateMacroBalances = () => {
   let numbDaysWithEntries = getDaysWithEntries()
   let consumedMacros = getConsumedMacros()
@@ -141,8 +119,6 @@ const setMacroBalances = () => {
   fatBalance.textContent  = macroBalances.fat
   proteinBalance.textContent  = macroBalances.protein
 }
-
-
 
 const calBalance = document.querySelector('.cal-balance')
 const calDirection = document.querySelector('.cal-icon')

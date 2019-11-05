@@ -1,18 +1,15 @@
 const express = require('express')
 const router = express.Router( {mergeParams: true })
-var passport = require('passport')
-var middleware = require("../middleware/auth")
-var User = require('../models/user')
-var Entry = require('../models/entry')
-var moment = require('moment')
+const passport = require('passport')
+const middleware = require("../middleware/auth")
+const User = require('../models/user')
+const Entry = require('../models/entry')
+const moment = require('moment')
 
 moment().format()
 
-// const { createEntry } = require('../handlers/entries')
-// router.route('/').post(createEntry)
-
 const getToday = function(){
-  var today = new Date()
+  let today = new Date()
   return {
     month: today.getMonth(),
     day: today.getDate(),
@@ -20,73 +17,48 @@ const getToday = function(){
   }
 }
 
-router.get('/secret', function(req, res, next){
-  if(err){
-    console.log(err)
-    next(err)
-  }else{
-    return res.render('secret')
-  }
-})
-
 // Post for a previous or future date
 // http://localhost:3000/tim/log/goto?day=14&month=4&year=2019
 router.post('/:username/log/goto', middleware.isLoggedIn, function(req, res, next) {
-  console.log('we are making a POST Request for a specific date')
   //check if req.query dates are the same as today
-  var queryDate = {
+  let queryDate = {
     month: req.query.month * 1,
     day: req.query.day * 1,
     year: req.query.year * 1
   }
 
-  var today = new Date()
-  var todayDate = {
+  let today = new Date()
+  let todayDate = {
     month: today.getMonth(),
     day: today.getDate(),
     year: today.getFullYear()
   }
-  console.log('THE TODAY DATE IS ', todayDate)
 
-  function newCreatedAtDate() {
-    var result = null
-    var queryDateVals = Object.values(queryDate)
-    var todayDateVals = Object.values(todayDate)
-    console.log(queryDateVals, todayDateVals)
-    for(let i = 0; i < queryDateVals.length; i++){
-      if (queryDateVals[i] !== todayDateVals[i]) {
-        result = false
-      } else {
-        result = true
-      }
-    }
-
-    if(result) {
-      return new Date(queryDate.year, queryDate.month, queryDate.day )
-    } else {
-      return today
-    }
+  let name = req.body.name
+  let carb = req.body.carb || 0
+  let fat = req.body.fat || 0
+  let protein = req.body.protein || 0
+  let favorite = req.body.favorite
+  let newFood = {
+    name,
+    carb,
+    fat,
+    protein,
+    user: {id:'', username: ''},
+    createdAt: new Date(queryDate.year, queryDate.month, queryDate.day ),
+    favorite
   }
-
-  var name = req.body.name
-  var carb = req.body.carb || 0
-  var fat = req.body.fat || 0
-  var protein = req.body.protein || 0
-  var favorite = req.body.favorite
-  var newFood = {name, carb, fat, protein, user: {id:'', username: ''}, createdAt: newCreatedAtDate(), favorite }
-  var userId = ''
+  let userId = ''
   User.findOne({username: req.params.username}, function(err, user) {
     if(err) {
-      console.log(err)
-      res.redirect('back')
+      next(err)
     } else {
       userId = user._id
       newFood.user.id = user._id
       newFood.user.username = user.username
-      console.log('the username is ', user.username)
       Entry.create(newFood, function(err, entry) {
         if(err) {
-          console.log(err)
+          next(err)
         } else {
           user.log.push(entry._id)
           let favoriteFood = {
@@ -104,34 +76,24 @@ router.post('/:username/log/goto', middleware.isLoggedIn, function(req, res, nex
       })
     }
   })
-
   return res.json(newFood)
 })
 
 // Current Date Post
 router.post('/:username/log', function(req, res, next) {
-  //check if we have a dateObj sent
-  console.log('Hello from today post route')
+  let name = req.body.name
+  let carb = req.body.carb || 0
+  let fat = req.body.fat || 0
+  let protein = req.body.protein || 0
+  let favorite = req.body.favorite
+  let newFood = {name, carb, fat, protein, user: {id:'', username: ''}, favorite }
+  let userId = ''
 
-  var name = req.body.name
-  var carb = req.body.carb || 0
-  var fat = req.body.fat || 0
-  var protein = req.body.protein || 0
-  var favorite = req.body.favorite
-  var newFood = {name, carb, fat, protein, user: {id:'', username: ''}, favorite }
-
-  if(req.body.dateObj){
-    console.log('!! WE HAVE A DATE OBJ SENT !!' , req.body.dateObj)
-    newFood.createdAt = req.body.dateObj
-  }
-  var userId = ''
-  console.log("THE NEW FOOD IS, ", newFood)
   User.findOne({username: req.params.username}, function(err, user) {
     if(err) {
       console.log(err)
       res.redirect('back')
     } else {
-      console.log('THE USER IN THE POST ROUTE IS ', user)
       userId = user._id
       newFood.user.id = user._id
       newFood.user.username = user.username
@@ -139,7 +101,6 @@ router.post('/:username/log', function(req, res, next) {
         if(err) {
           console.log(err)
         } else {
-          console.log(entry)
           user.log.push(entry._id)
           let favoriteFood = {
             name: name,
@@ -148,7 +109,6 @@ router.post('/:username/log', function(req, res, next) {
             protein: protein,
             favorite: favorite
           }
-          console.log('THE VAL OF FAVORITE IS ', favoriteFood.favorite)
           // if the food is favorited, add that food to the user's favorite array
           if(favoriteFood.favorite) {
             user.favorites.push(favoriteFood)
@@ -158,24 +118,13 @@ router.post('/:username/log', function(req, res, next) {
       })
     }
   })
-
-  // let userEntries = ''
-  // Entry.find({user.id: userId}, function(err, logs) {
-  //   if(err) {
-  //     console.log(err)
-  //   } else {
-  //     console.log(logs)
-  //     userEntries = logs
-  //   }
-  // })
   return res.json(newFood)
-  // return res.render(`userlog` ,{ username: req.params.username })
 })
 
 
 //NEW GET ROUTE
-router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, function(req, res) {
-  console.log('HELLO FROM THE NEW GET ROUTE!!')
+router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, function(req, res, next) {
+  console.log('HELLO FROM THE NEW GET ROUTE!!', req.user.username)
   let currDate = null
   let day = null
   let month = null
@@ -183,7 +132,6 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
   let today = null
   let showTodayLink = false
   if(req.query.month){
-    console.log('we have date query params!!!')
     showTodayLink = true
     currDate = {
       day : parseInt(req.query.day),
@@ -203,7 +151,7 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
     today = getToday()
   }
 
-  let username = req.params.username
+  let username = req.user.username
   let entries = null
   let goal = null
   let macros = null
@@ -212,8 +160,11 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
   query.select('goal macros favorites log')
   query.populate('log')
   query.exec(function(err, user) {
-    if(err) {
-      console.log(err)
+    if(err || user == null) {
+      if(user == null) {
+        next(new Error("Not logged in as specified User"))
+      }
+      next(err)
     } else {
       goal = user.goal
       macros = user.macros
@@ -232,7 +183,6 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
 
       //filter on entry createdAt date
       let todaysEntries = entries.filter(function(meal){
-
         let mealDate = {
           month: meal.createdAt.getMonth(),
           day: meal.createdAt.getDate(),
@@ -247,129 +197,6 @@ router.get('(/:username/log|/:username/log/goto)', middleware.isLoggedIn, functi
       res.render('userlog', {username, goal, todaysEntries, currDate, macros, showTodayLink, favorites})
       }
     })
-})
-
-//SHOW main page: current day entries, daily target
-router.get('/:username/log', middleware.isLoggedIn, function(req, res) {
-  let currDate = {
-    month: moment().month(),
-    day: moment().date(),
-    year: moment().year()
-  }
-  console.log(currDate.month, currDate.day, currDate.year)
-  let username = req.params.username
-  let entries = null
-  let today = getToday()
-
-  let goal = null
-  User.findOne({username: username}, 'goal').exec(function(err, user){
-      if(err){
-        console.log(err)
-      }else{
-        console.log(user.goal)
-        goal = user.goal
-      }
-    })
-
-  let macros = null
-  User.findOne({username: username}, 'macros').exec(function(err, user){
-      if(err){
-        console.log(err)
-      }else{
-        console.log(user.macros)
-        macros = user.macros
-      }
-    })
-
-  User.findOne({username: username}, 'log').populate('log').exec(function(err, user){
-    if(err) {
-      console.log(err)
-    } else {
-      entries = user.log.map(function(meal){
-        return {
-          name: meal.name,
-          carb: meal.carb,
-          fat: meal.fat,
-          protein: meal.protein,
-          favorite: meal.favorite,
-          createdAt: meal.createdAt,
-          id: meal._id
-        }
-      })
-
-      //filter on entry createdAt date
-      todaysEntries = entries.filter(function(meal){
-        let mealDate = {
-          month: meal.createdAt.getMonth(),
-          day: meal.createdAt.getDate(),
-          year: meal.createdAt.getFullYear()
-        }
-        console.log('Our meal CREATION DATE was ', meal.createdAt, meal.name, mealDate.day, mealDate.month, mealDate.year)
-        if(mealDate.month === today.month &&
-          mealDate.day === today.day &&
-          mealDate.year === today.year){
-            return meal
-          }
-      })
-      console.log('todays entries include ', todaysEntries)
-      res.render('userlog', {username, goal, todaysEntries, currDate, macros})
-    }
-  })
-})
-
-//SHOW SPECIFIC DAY ENTRIES
-// goto/?day=xx&month=xx&year=xxxx
-router.get('/:username/log/goto' , middleware.isLoggedIn, function(req, res) {
-
-  let currDate = {
-    month: req.query.month,
-    day: req.query.day,
-    year: req.query.year
-  }
-
-  let username = req.params.username
-  let entries = null
-  let day = parseInt(req.query.day)
-  let month = parseInt(req.query.month)
-  let year = parseInt(req.query.year)
-  console.log('our search date is ', day, month, year)
-
-  User.findOne({username: username}, 'log').populate('log').exec(function(err, user){
-    if(err) {
-      console.log(err)
-    } else {
-      entries = user.log.map(function(meal){
-        return {
-          name: meal.name,
-          carb: meal.carb,
-          fat: meal.fat,
-          protein: meal.protein,
-          favorite: meal.favorite,
-          createdAt: meal.createdAt,
-          id: meal._id
-        }
-      })
-
-      //filter on entry createdAt date == current date
-      todaysEntries = entries.filter(function(meal){
-        let mealDate = {
-          month: meal.createdAt.getMonth(),
-          day: meal.createdAt.getDate(),
-          year: meal.createdAt.getFullYear()
-        }
-        console.log('Our meal CREATION DATE was ', meal.createdAt.getMonth(), 'our mealDate month is ', mealDate.month)
-        console.log(parseInt(mealDate.day) === parseInt(day))
-        if(mealDate.month === month &&
-          mealDate.day === day &&
-          mealDate.year === year){
-
-            return meal
-          }
-      })
-      console.log('todays entries include ', todaysEntries)
-      res.render('userlogDated', {username, todaysEntries, currDate})
-    }
-  })
 })
 
 // DELETE/DESTROY Route: delete the entry and remove from the user's log
@@ -388,7 +215,6 @@ router.delete("/:username/api/delete/:id", middleware.checkEntryOwnership, (req,
             if(err) {
               console.log(err)
             } else {
-              console.log(data)
               res.json(data)
             }
           })
@@ -398,8 +224,6 @@ router.delete("/:username/api/delete/:id", middleware.checkEntryOwnership, (req,
 
 // UPDATE A FOOD ENTRY ROUTE
 router.put("/:username/api/update/:id", middleware.checkEntryOwnership, function(req, res){
-  console.log('hello from the PUT route server!')
-  console.log(req.params.id)
   let data = {
     carb: parseInt(req.body.carb),
     fat: parseInt(req.body.fat),
@@ -411,7 +235,6 @@ router.put("/:username/api/update/:id", middleware.checkEntryOwnership, function
       if(err){
           res.redirect("back");
       } else {
-        console.log('successfully updated the entry')
           res.json(data);
       }
    });

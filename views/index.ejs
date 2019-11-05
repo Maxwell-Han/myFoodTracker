@@ -9,12 +9,12 @@
 <body>
   <h3>Welcome to My Food Buddy</h3>
   <div class="container">
-    <div class="button">
-      <a href="/login">Log in as an existing user</a>
-    </div>
-    <div class="button">
-      <a href="/signup">Sign up as a new user</a>
-    </div>
-  </div>
-
+    <a class="button" href="/login">Log in as an existing user</a>
+    <a class="button" href="/signup">Sign up as a new user</a>
+    <div class="button demo"><a>Visit as a Demo User</a></div>
+    <form action="/login" method="post" class="signin-container demo-form">
+      <input name="username" placeholder="username" value="tim">
+      <input name="password" type="password" placeholder="password" autocomplete="off" value="tim">
+    </form>
+    <script type="text/javascript" src="scripts/landing.js"></script>
 <% include ./partials/footer %>

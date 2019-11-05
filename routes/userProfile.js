@@ -7,10 +7,9 @@ var Entry = require('../models/entry')
 var moment = require('moment')
 moment().format()
 
-
+// look up user and get profile Details
+//pass details through to the update form
 router.get('/:username/profile', function(req, res, next) {
-  // look up user and get profile Details
-  //pass details through to the update form
   let username = req.user.username
   let email = req.user.email
   let goal = null
@@ -24,7 +23,6 @@ router.get('/:username/profile', function(req, res, next) {
         goal = user.goal
         macros = user.macros
         profile = user.profile[user.profile.length - 1]
-        // res.send(JSON.stringify(user))
         console.log('the profile is ', profile)
         res.render('profile', {username, email, goal, macros, profile})
       }

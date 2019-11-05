@@ -12,7 +12,7 @@ body {
   margin: 0;
 }
 .outmost-container {
-  height: 100vh;
+  height: 93vh;
   width: 100vw;
   display: grid;
   grid-template-rows: auto auto auto auto 1fr;

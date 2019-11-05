@@ -8,6 +8,9 @@
 </head>
 <body>
   <h3>Sign up with a username</h3>
+  <% if(message)  {%>
+    <h3> <%= message %> </h3>
+  <% } %>
   <div class="container">
     <form action="/signup" method="post">
       <label>Username: </label>

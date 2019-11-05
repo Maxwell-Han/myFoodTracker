@@ -1,8 +1,5 @@
-console.log('hello from the user favorites js file')
-
+//scripts for favorites add/edit/delete page
 const favs = document.querySelectorAll('.fav-container')
-
-
 const addFavButton = document.getElementById('add-entry')
 const favForm = document.querySelector('.fav-form')
 addFavButton.addEventListener('click', (e) => {
@@ -10,7 +7,6 @@ addFavButton.addEventListener('click', (e) => {
 })
 
 // Selecting and Editing Existing Favorites
-
 //Select a favorite and add data to top form
 const focusOnFav = (favElement) => {
   let name = favElement.querySelector('.fav-name').textContent
@@ -80,7 +76,6 @@ const updateHandler = () => {
   console.log('hello from the update handler')
   let form = document.querySelector('.fav-form')
   let action = form.action
-  debugger
   form.action = `${action}/update`
   form.submit()
 }

@@ -14,7 +14,12 @@ moment().format()
   find food entries from user profile
 */
 // GET current week entries AND all Favorites
-router.get('/:username/userStats', function(req, res, next) {
+router.get('/:username/userStats', middleware.isLoggedIn, function(req, res, next) {
+  console.log('hello from the get userStats route')
+  if(!req.user){
+    console.log('skipping this route')
+    next(err)
+  }
   var startDate = moment().day(0).hour(0).minute(0)
   var endDate = moment()
   Promise.all([
@@ -35,7 +40,10 @@ router.get('/:username/userStats', function(req, res, next) {
     let favorites = JSON.stringify(favQuery.log) //array of favorited entries
     let weeklyEntries = JSON.stringify(entriesQuery[0].log) //array of week's entries
     res.render('userStats', {macros, favorites, weeklyEntries, username: req.user.username, showTodayLink: true})
-  }).catch( e => res.send(e))
+  }).catch( e => {
+    console.log('we caught an error', e)
+    res.send(e)
+  })
 })
 
 

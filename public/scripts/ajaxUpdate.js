@@ -1,4 +1,5 @@
-var editButtons = document.querySelectorAll('.edit')
+//handle edit actions for existing entries
+let editButtons = document.querySelectorAll('.edit')
 for(let i = 0; i < editButtons.length; i++){
   editButtons[i].addEventListener('click',showEdit)
 }
@@ -12,12 +13,9 @@ function showEdit(e){
   let fat = protein.previousElementSibling
   let carbs = fat.previousElementSibling
   let name = carbs.previousElementSibling
-
-
   let newProtein = document.createElement('input')
   let newFat = document.createElement('input')
   let newCarbs = document.createElement('input')
-
   let newName = document.createElement('input')
 
   newProtein.value = protein.textContent
@@ -42,7 +40,6 @@ function showEdit(e){
   let cancelButton = document.querySelector('.cancel')
   let saveButton = document.querySelector('.save')
   cancelButton.addEventListener('click', function(){
-    console.log('hello from the cancel button')
     editOptionsContainer.parentNode.replaceChild(optionsDiv, editOptionsContainer)
     newProtein.parentNode.replaceChild(protein, newProtein)
     newFat.parentNode.replaceChild(fat, newFat)
@@ -59,22 +56,21 @@ function showEdit(e){
     }
     editHandler(id, data)
   })
-
 }
 
 //edit handler
 // add click handler to all edit
 // select the entry field values and change to form
 function createEditOptions(){
-  var cancel = document.createElement('i')
+  let cancel = document.createElement('i')
   cancel.textContent = 'cancel'
   cancel.className = "cancel material-icons"
-  // var spacing = document.createElement('span')
+  // let spacing = document.createElement('span')
   // spacing.textContent = "||"
-  var save = document.createElement('i')
+  let save = document.createElement('i')
   save.textContent = 'save'
   save.className = "save material-icons"
-  var optionsContainer = document.createElement('div')
+  let optionsContainer = document.createElement('div')
   optionsContainer.className = "edit-options-container"
   optionsContainer.appendChild(cancel)
   // optionsContainer.appendChild(spacing)
@@ -86,9 +82,7 @@ function createEditOptions(){
 
 function editHandler(id, data){
   let url = `/${document.querySelector('.username').textContent}/api/update/${id}`
-  console.log('hello from the edit handler! ', 'the id is ', id)
-  console.log('the data is ', data)
-  var httpRequest = new XMLHttpRequest()
+  let httpRequest = new XMLHttpRequest()
   if(!httpRequest) {
     console.log('unable to make request')
     return false
@@ -96,16 +90,13 @@ function editHandler(id, data){
   httpRequest.onreadystatechange = function(){
     if(httpRequest.readyState ===XMLHttpRequest.DONE) {
       if(httpRequest.status === 200) {
-        console.log('the response text is ', httpRequest.responseText)
         location.reload()
       } else {
         console.log('there was a problem with the request')
       }
     }
   }
-
   httpRequest.open('PUT', url, true)
   httpRequest.setRequestHeader('Content-Type', 'application/json')
   httpRequest.send(JSON.stringify(data))
-
 }

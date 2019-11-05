@@ -4,21 +4,21 @@ var mongoose = require('mongoose')
 
 //comment out to use mongo atlas
 // mongoose.set('debug', true)
-// mongoose.connect('mongodb://localhost:27017/testmacros', {
-//   keepAlive: true,
-// })
+mongoose.connect('mongodb://localhost:27017/testmacros', {
+  keepAlive: true,
+})
 
 // Using mongo atlas, connect to testFoods db
-const uri = `mongodb+srv://admin:${process.env.MACRO_APP_DB_KEY}@clusterm-t6qy8.mongodb.net/testFoods?retryWrites=true`
-mongoose.connect(uri).catch(function (reason) {
-    console.log('Unable to connect to the mongodb instance. Error: ', reason);
-})
+// const uri = `mongodb+srv://admin:${process.env.MACRO_APP_DB_KEY}@clusterm-t6qy8.mongodb.net/testFoods?retryWrites=true`
+// mongoose.connect(uri).catch(function (reason) {
+//     console.log('Unable to connect to the mongodb instance. Error: ', reason);
+// })
 
 var User = require('./models/user')
 var Entry = require('./models/entry')
 
 var passport = require('passport')
-var LocalStrategy = require('passport-local') // .Strategy?
+var LocalStrategy = require('passport-local').Strategy
 var passportLocalMongoose = require('passport-local-mongoose')
 var middleware = require("./middleware/auth")
 var app = express()
@@ -34,15 +34,17 @@ app.use(require('express-session')({
   resave: false,
   saveUninitialized:  false
 }))
+const flash = require('connect-flash')
+
 // serve static files from /public
 app.use(express.static(__dirname + '/public'))
-// app.use('/public', express.static(__dirname + '/public'));
-// app.use("/static", express.static('./static/'))
+
 app.set("view engine", "ejs")
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 app.use(methodOverride("_method"))
+app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
 passport.use(new LocalStrategy(User.authenticate()))
@@ -50,6 +52,10 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+app.use(function(req, res, next) {
+  res.locals.message = req.flash("error")
+  next()
+})
 
 
 app.get('/', function(req, res) {
@@ -63,14 +69,16 @@ app.use(userStats)
 app.use(userFavorites)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('File Not Found');
-  err.status = 404;
-  next(err);
-});
+// app.use(function(req, res, next) {
+//   var err = new Error('File Not Found');
+//   err.status = 404;
+//   res.redirect('/login');
+// });
 
 // error handler
 app.use(function(err, req, res, next) {
+  console.log(err.message)
+  res.redirect('back')
   return res.status(err.status || 500).json({
     error: {
       message: err.message || "Oops! Something went wrong."

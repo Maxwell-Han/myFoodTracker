@@ -1,28 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport')
-var Entry = require('../models/entry')
-var User = require('../models/user')
-var middleware = require("../middleware/auth")
-// const { signup, signin } = require('../handlers/auth')
-//
-// router.post('/signup', signup)
-// router.post('/signin', signin)
-// module.exports = router
-
+const express = require('express');
+const router = express.Router();
+const passport = require('passport')
+const Entry = require('../models/entry')
+const User = require('../models/user')
+const middleware = require("../middleware/auth")
 
 router.get('/signup',function(req, res) {
-  res.render('signup')
-})
-
-router.get('/secret', middleware.isLoggedIn, function(req, res) {
-  User.find({}, function(err, allUsers) {
-    if(err) {
-      console.log(err)
-    } else {
-      res.render('./secret', {users: allUsers})
-    }
-  })
+  res.render('signup', {message: req.flash("error")})
 })
 
 router.post('/signup', function(req, res, next) {
@@ -31,7 +15,8 @@ router.post('/signup', function(req, res, next) {
     function(err, user){
       if(err){
         console.log(err)
-        return res.render('signup')
+        req.flash("error", "invalid registration entries")
+        return res.redirect('signup')
       }
       let username = req.body.username
       passport.authenticate('local')(req, res, function() {
@@ -50,23 +35,25 @@ router.get('/newUser/:username', function(req, res){
   res.render('newUser')
 })
 
-
-
 router.get('/login', function(req, res) {
   res.render('login')
 })
 
 router.post('/login',
-  passport.authenticate('local', {failureRedirect: '/login'}),
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: true
+  }),
   function(req, res) {
+    console.log(req.body)
     let username = req.body.username
     res.redirect(`/${username}/log`)
-  })
-
-router.get('/landing')
+  }
+)
 
 
 router.get('/logout', function(req, res){
+  console.log('GOODBYE ', req.body.username)
   req.logout()
   res.redirect('login')
 })

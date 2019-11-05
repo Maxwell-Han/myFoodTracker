@@ -33,3 +33,11 @@ button {
   height: 7vh;
   border-radius: 4px;
 }
+
+@media  (min-width: 501px) {
+  form {
+    min-width: 500px;
+    max-width: 550px;
+    margin: auto;
+  }
+}

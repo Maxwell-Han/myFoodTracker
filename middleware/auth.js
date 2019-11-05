@@ -3,12 +3,16 @@ dotenv.config()
 var User = require('../models/user')
 var Entry = require('../models/entry')
 const middleware = {}
-// const jwt = require('jsonwebtoken')
 
-middleware.isLoggedIn = function(req, res, next) {
+middleware.isLoggedIn = function(err, req, res, next) {
   if(req.isAuthenticated()) {
     return next()
   }
+  if(err) {
+    req.flash("error", err.message)
+    console.log('caught an error in isLoggedIn')
+  }
+  req.flash("error", "Please Log In First")
   res.redirect('/login')
 }
 
@@ -19,7 +23,6 @@ middleware.checkEntryOwnership = function(req, res, next) {
         console.log(err, ' This is not your entry')
         re.redirect('/landing')
       } else {
-        // does req.username have the id property here?
         if(foundEntry.user.id.equals(req.user._id)) {
           console.log('You are allowed to edit this entry')
           next()
@@ -29,45 +32,8 @@ middleware.checkEntryOwnership = function(req, res, next) {
       }
     })
   } else {
-    console.log('you dont have permission to edit')
+    res.json('you dont have permission to edit')
   }
 }
 
 module.exports = middleware
-// Authentication
-// exports.loginRequired = function(req, res, next) {
-//   try {
-//     const token = req.headers.authorization.split(" ")[1]
-//     jwt.verify(token, process.env.SECRET_KEY, function(err, decoded){
-//       if (decoded) {
-//         return next()
-//       } else {
-//         return next({
-//           status: 401,
-//           message: "Please log in first"
-//         })
-//       }
-//     })
-//   } catch(err) {
-//     return next({ status: 401, message: "Please log in first" })
-//   }
-// }
-//
-// // Authorization
-// exports.ensureCorrectUser = function(req, res, next) {
-//   try {
-//     const token = req.headers.authorization.split(" ")[1]
-//     jwt.verify(token, process.env.SECRET_KEY, function(err, decoded){
-//       if(decoded && decoded.id === req.params.id) {
-//         return next()
-//       } else {
-//         return next({
-//           status: 401,
-//           message: "Unauthorized"
-//         })
-//       }
-//     })
-//   } catch(err) {
-//     return next({ status: 401, message: "Unauthorized" })
-//   }
-// }
