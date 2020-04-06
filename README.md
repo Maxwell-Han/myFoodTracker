@@ -1,9 +1,10 @@
 # My Food Tracker
 
 #### MyFitnessPal minus the bloat.  Track your macros adfree!
+[Visit the Live App!](https://foodtrackertest.herokuapp.com/)
 
 ## Tech Stack
-- [EJS](https://ejs.co/)
+- [EJS (template engine)](https://ejs.co/)
 - [Node.js](https://nodejs.org/en/)
 - [Express](http://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
